@@ -1,0 +1,187 @@
+:root {
+  --main-text-color: rgba(0, 0, 0, 0.85);
+  --secondary-text-color: rgba(0, 0, 0, 0.45);
+  --disabled-text-color: rgba(0, 0, 0, 0.1);
+  --yellow-accent: rgb(250, 220, 20);
+  --unit: 4px;
+}
+
+.contestant-card {
+  width: 100%;
+
+  &__divider {
+    &--short {
+      margin: 8px 0;
+    }
+  }
+}
+
+.contestant-card-header {
+  display: grid;
+  grid-template-columns: 80px auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "avatar name"
+    "avatar pos";
+  gap: 8px;
+
+  &__avatar {
+    grid-area: avatar;
+  }
+
+  &__name {
+    grid-area: name;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__position {
+    grid-area: pos;
+    margin: 0;
+    padding: 0;
+    color: var(--secondary-text-color);
+    font-weight: 400;
+  }
+}
+
+.card-data {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &__label {
+    color: var(--secondary-text-color);
+    margin: 2px 4px 2px 0;
+    padding: 0 4px;
+    border-left: 3px solid var(--secondary-text-color);
+    width: 50%;
+  }
+
+  &__value {
+    text-align: left;
+  }
+
+  &__percentage {
+    font-family: "Courier New", Courier, monospace;
+  }
+}
+
+.card-data-group {
+  display: grid;
+  gap: 2px;
+}
+
+.data-value {
+  font-size: 2rem;
+  line-height: 1rem;
+  letter-spacing: -3px;
+
+  &__on {
+    color: var(--yellow-accent);
+  }
+
+  &__off {
+    color: var(--disabled-text-color);
+  }
+}
+
+$box-size: 40px;
+$boxes-container: 40px * 3;
+$label-h: 30px;
+$label-v: 15px;
+
+.alignment-grid {
+  margin: var(--unit) auto 0;
+  padding: var(--unit);
+  display: grid;
+  grid-template-columns: [col-start] $label-h [col-boxes] $boxes-container [col-boxes-end] $label-h [col-end];
+  grid-template-rows: [row-start] $label-v [row-boxes] $boxes-container [row-boxes-end] $label-v [row-end];
+  justify-items: center;
+
+  &__boxes {
+    grid-column: col-boxes / col-boxes-end;
+    grid-row: row-boxes / row-boxes-end;
+
+    display: grid !important;
+    grid-template-columns: $box-size $box-size $box-size;
+    grid-template-rows: $box-size $box-size $box-size;
+  }
+
+  &__good {
+    grid-column: col-boxes / col-boxes-end;
+    grid-row: row-start / row-boxes;
+    font-size: 70%;
+    text-transform: uppercase;
+  }
+
+  &__evil {
+    grid-column: col-boxes / col-boxes-end;
+    grid-row: row-boxes-end row-end;
+    font-size: 70%;
+    text-transform: uppercase;
+  }
+
+  &__lawful {
+    grid-row: row-boxes / row-boxes-end;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    font-size: 70%;
+    text-transform: uppercase;
+  }
+
+  &__chaotic {
+    grid-column: col-boxes-end / col-end;
+    grid-row: row-boxes / row-boxes-end;
+    writing-mode: vertical-rl;
+    text-align: center;
+    font-size: 70%;
+    text-transform: uppercase;
+  }
+
+  &__box {
+    background: white;
+    margin: 4px;
+    border: 1px solid var(--secondary-text-color);
+    width: $box-size - 8px;
+    height: $box-size - 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--active {
+      border: 3px solid var(--yellow-accent);
+      color: var(--yellow-accent);
+      font-weight: bold;
+      border-radius: 4px;
+    }
+  }
+}
+
+.card-data-personality {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  &__label {
+    color: var(--secondary-text-color);
+    margin: 2px 4px 2px 0;
+    padding: 0 4px;
+    border-left: 3px solid var(--secondary-text-color);
+    width: 50%;
+  }
+
+  &__value {
+    text-align: left;
+  }
+}
+
+.contestant-button {
+  border: 2px solid transparent;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    border-color: var(--disabled-text-color);
+  }
+}
