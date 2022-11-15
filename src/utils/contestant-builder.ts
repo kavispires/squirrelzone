@@ -165,13 +165,17 @@ export function createContestant(index: number, options?: Options) {
   // Add Skills Stats
   // buildSkillsStats(newContestant);
 
-  // Distribute traits
-  distributeTraits(newContestant, 4, "traits");
+  // Distribute personality traits
+  distributeTraits(newContestant, "PERSONALITIES", 3);
 
-  // Distribute interests
-  distributeTraits(newContestant, 1, "interests");
+  // // Distribute features
+  distributeTraits(newContestant, "FEATURES", 1);
 
-  // TODO: Create appearance
+  // // Distribute history
+  distributeTraits(newContestant, "HISTORY", 1);
+
+  // // Distribute interests
+  distributeTraits(newContestant, "INTERESTS", 1);
 
   // TODO: Update stats according to physical appearance
 

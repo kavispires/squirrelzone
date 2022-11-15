@@ -1,4 +1,660 @@
 import { D6, MULTIPLIER, PERCENTAGE, RANGE } from "../constants";
 import { Trait } from "../types";
 
-export const HISTORY: Trait[] = [];
+export const HISTORY: Trait[] = [
+  {
+    keyword: "ACTOR",
+    title: "Actor",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.ADD,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AFRAID_OF_HEIGHTS",
+    title: "Afraid of heights",
+    description: "",
+    type: "secret",
+    group: "phobia",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AFRAID_OF_SNAKES",
+    title: "Afraid of snakes",
+    description: "",
+    type: "secret",
+    group: "phobia",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AFRAID_OF_THE_DARK",
+    title: "Afraid of the dark",
+    description: "",
+    type: "secret",
+    group: "phobia",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "ALCOHOLIC",
+    title: "Alcoholic",
+    description: "",
+    type: "secret",
+    group: "health",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.discipline": RANGE.LEAST,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "BAD_KNEE",
+    title: "Bad knee",
+    description: "",
+    type: "physical",
+    group: "health",
+    track: "",
+    setup: {
+      update: {
+        "stats.skills.stamina": PERCENTAGE.MIN,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "BATTLING_CANCER",
+    title: "Battling cancer",
+    description: "",
+    type: "secret",
+    group: "health",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sincerity": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "CHAMELEON",
+    title: "Chameleon",
+    description: "",
+    type: "special",
+    group: "special",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.stagePresence": D6.ADD,
+        "stats.general.leadership": D6.ADD,
+        "stats.general.rhetoric": D6.SUBTRACT,
+        "stats.general.visual": D6.SUBTRACT,
+        "stats.skills.learning": PERCENTAGE.MAX,
+        "stats.skills.memory": PERCENTAGE.MAX,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "CHILD_ACTOR",
+    title: "Child Actor",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.SUBTRACT,
+        "stats.personality.extroversion": RANGE.SOME,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "CHOREOGRAPHER",
+    title: "Choreographer",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.stagePresence": D6.ADD,
+        "stats.stage.dance": D6.ADD,
+        "stats.skills.learning": PERCENTAGE.MAX,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "DANCE_COMPETITION_PARTICIPANT",
+    title: "Dance competition participant",
+    description: "",
+    type: "activity",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.skills.learning": PERCENTAGE.UP,
+        "stats.skills.sanity": PERCENTAGE.UP,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "DANCE_COMPETITION_WINNER",
+    title: "Dance competition winner",
+    description: "",
+    type: "activity",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.skills.learning": PERCENTAGE.UP,
+        "stats.skills.sanity": PERCENTAGE.UP,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "EXTRA_TOE",
+    title: "Extra toe",
+    description: "",
+    type: "secret",
+    group: "appearance",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.SOME,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "KILLED_SOMEONE_IN_A_CAR_ACCIDENT",
+    title: "Killed someone in a car accident",
+    description: "",
+    type: "secret",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sincerity": RANGE.LEAST,
+        "stats.personality.happiness": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "LOST_FRIEND_IN_THE_PAST",
+    title: "Lost friend in the past",
+    description: "",
+    type: "history",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.happiness": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "LYRICIST",
+    title: "Lyricist",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.stage.rap": D6.ADD,
+        "stats.personality.curiosity": RANGE.MORE,
+        "stats.personality.intelligence": RANGE.SOME,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "MODEL",
+    title: "Model",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.visual": D6.ADD,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "NON-BINARY",
+    title: "Non-binary",
+    description: "",
+    type: "physical",
+    group: "identity",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.leadership": D6.SUBTRACT,
+        "stats.general.visual": D6.ADD,
+        "stats.personality.curiosity": RANGE.SOME,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "ORPHAN",
+    title: "Orphan",
+    description: "",
+    type: "family",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.happiness": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "PAST_HEART_SURGERY",
+    title: "Past heart surgery",
+    description: "",
+    type: "secret",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.introversion": RANGE.BIT,
+        "stats.personality.sincerity": RANGE.BIT,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "PREVIOUSLY_A_STRIPPER",
+    title: "Previously A Stripper",
+    description: "",
+    type: "secret",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.SUBTRACT,
+        "stats.personality.extroversion": RANGE.MORE,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRET_DRUG_ADDICTION",
+    title: "Secret drug addiction",
+    description: "",
+    type: "secret",
+    group: "health",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sincerity": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRETLY_ADULT_CONTENT_ACTOR",
+    title: "Secretly adult content actor",
+    description: "",
+    type: "secret",
+    group: "scandal",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.ADD,
+        "stats.personality.sincerity": RANGE.LESS,
+        "stats.personality.extroversion": RANGE.MORE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRETLY_BISEXUAL",
+    title: "Secretly bisexual",
+    description: "",
+    type: "secret",
+    group: "sexuality",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.ADD,
+        "stats.personality.sincerity": RANGE.LESS,
+        "stats.personality.happiness": RANGE.LESS,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRETLY_DEPRESSED",
+    title: "Secretly depressed",
+    description: "",
+    type: "secret",
+    group: "health",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.happiness": RANGE.LEAST,
+        "stats.personality.sincerity": RANGE.LESS,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRETLY_GAY",
+    title: "Secretly gay",
+    description: "",
+    type: "secret",
+    group: "sexuality",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.happiness": RANGE.LESS,
+        "stats.personality.sincerity": RANGE.LESS,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRETLY_TRANS",
+    title: "Secretly trans",
+    description: "",
+    type: "secret",
+    group: "identity",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.visual": D6.ADD,
+        "stats.general.charisma": D6.SUBTRACT,
+        "stats.personality.happiness": RANGE.LESS,
+        "stats.personality.sincerity": RANGE.LESS,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SECRETLY_WEARS_A_WIG",
+    title: "Secretly wears a wig",
+    description: "",
+    type: "secret",
+    group: "appearance",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.visual": D6.ADD,
+        "stats.personality.sensitivity": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SEXY_SPEAKING_VOICE",
+    title: "Sexy speaking voice",
+    description: "",
+    type: "physical",
+    group: "voice",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.ADD,
+        "stats.general.rhetoric": D6.ADD,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SLEPT_WITH_PRODUCER",
+    title: "Slept with producer",
+    description: "",
+    type: "secret",
+    group: "scandal",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.stagePresence": D6.SUBTRACT,
+        "stats.general.rhetoric": D6.ADD,
+        "stats.personality.extroversion": RANGE.SOME,
+        "stats.personality.curiosity": RANGE.SOME,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SMOKER",
+    title: "Smoker",
+    description: "",
+    type: "status",
+    group: "health",
+    track: "",
+    setup: {
+      update: {
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SON_OF_FAMOUS_PERSON",
+    title: "Son of famous person",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.luck": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SON_OF_PRODUCER",
+    title: "Son of producer",
+    description: "",
+    type: "secret",
+    group: "scandal",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sincerity": RANGE.LESS,
+        "stats.multipliers.luck": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SONGWRITER",
+    title: "Songwriter",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.curiosity": RANGE.MORE,
+        "stats.skills.memory": PERCENTAGE.UP,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SPEECH_IMPEDIMENT",
+    title: "Speech Impediment",
+    description: "",
+    type: "physical",
+    group: "voice",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.rhetoric": D6.SUBTRACT,
+        "stats.personality.extroversion": RANGE.LESS,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SQUEAKY_SPEAKING_VOICE",
+    title: "Squeaky speaking voice",
+    description: "",
+    type: "physical",
+    group: "voice",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sincerity": RANGE.BIT,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "TIRED_RESEMBLANCE",
+    title: "Tired Resemblance",
+    description: "",
+    type: "physical",
+    group: "appearance",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.visual": D6.SUBTRACT,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "VERY_SHORT",
+    title: "Very short",
+    description: "",
+    type: "physical",
+    group: "height",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.leadership": D6.SUBTRACT,
+        "stats.personality.gentleness": RANGE.MORE,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "VERY_TALL",
+    title: "Very tall",
+    description: "",
+    type: "physical",
+    group: "height",
+    track: "",
+    setup: {
+      update: {
+        "stats.general.leadership": D6.ADD,
+        "stats.personality.sincerity": RANGE.SOME,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "VIRGIN",
+    title: "Virgin",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MORE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "POOR",
+    title: "Poor",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.gentleness": RANGE.MORE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "RICH",
+    title: "Rich",
+    description: "",
+    type: "status",
+    group: "history",
+    track: "",
+    setup: {
+      update: {
+        "stats.personality.gentleness": RANGE.LESS,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+];

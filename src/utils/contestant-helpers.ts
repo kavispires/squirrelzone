@@ -165,12 +165,13 @@ const usedTraits: Record<string, boolean> = {};
  * @param contestant
  * @param quantity
  */
-export function distributeTraits(contestant: Contestant, quantity = 3, kind = "traits") {
+export function distributeTraits(contestant: Contestant, kind: keyof typeof SHUFFLED_TRAITS, quantity = 3) {
+  const traitLibrary = SHUFFLED_TRAITS[kind];
   const contestantTraits: Trait[] = [];
   const contestantGroups: Record<string, boolean> = {};
   let index = 0;
-  while (contestantTraits.length < quantity || index >= SHUFFLED_TRAITS.length) {
-    const selectedTrait = kind === "traits" ? SHUFFLED_TRAITS[index] : SHUFFLED_INTERESTS[index];
+  while (contestantTraits.length < quantity || index >= traitLibrary.length) {
+    const selectedTrait = traitLibrary[index];
     const { keyword, type, group } = selectedTrait;
     const groupKey = `${type}-${group}`;
     // If it is not a used trait and not in a contestant used group

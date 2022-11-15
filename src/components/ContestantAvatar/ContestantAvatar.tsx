@@ -19,19 +19,18 @@ type ContestantAvatarProps = {
 };
 export const ContestantAvatar = memo<ContestantAvatarProps>(({ color, dna, className }) => {
   const parsedDNA = parseDNA(dna);
-  console.log(parsedDNA);
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" className={className}>
       <Background color={color} />
       <Tail appearance={parsedDNA} />
-      <Hair appearance={parsedDNA} />
+      <Hair appearance={parsedDNA} color={color} />
       <Body appearance={parsedDNA} color={color} />
       <Head appearance={parsedDNA} />
       <Mouth appearance={parsedDNA} />
       <Nose appearance={parsedDNA} />
       <Eyes appearance={parsedDNA} />
       <EyeLids appearance={parsedDNA} />
-      <Bangs appearance={parsedDNA} />
+      <Bangs appearance={parsedDNA} color={color} />
     </svg>
   );
 });

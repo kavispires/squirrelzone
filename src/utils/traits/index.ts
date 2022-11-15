@@ -1,14 +1,24 @@
 import { shuffle } from "../helpers";
 import { Trait } from "../types";
-import { COMMON_TRAITS } from "./common";
+import { FEATURES } from "./features";
+import { HISTORY } from "./history";
 import { INTERESTS } from "./interests";
+import { PERSONALITIES } from "./personalities";
 
-export const TRAITS_DICT = [...COMMON_TRAITS, ...INTERESTS].reduce((acc: Record<string, Trait>, entry) => {
-  acc[entry.keyword] = entry;
+export const TRAITS_DICT = [...FEATURES, ...HISTORY, ...INTERESTS, ...PERSONALITIES].reduce(
+  (acc: Record<string, Trait>, entry) => {
+    acc[entry.keyword] = entry;
 
-  return acc;
-}, {});
+    return acc;
+  },
+  {}
+);
 
-export const SHUFFLED_TRAITS = shuffle(COMMON_TRAITS);
+export const SHUFFLED_TRAITS = {
+  FEATURES: shuffle(FEATURES),
+  HISTORY: shuffle(HISTORY),
+  INTERESTS: shuffle(INTERESTS),
+  PERSONALITIES: shuffle(PERSONALITIES),
+};
 
 export const SHUFFLED_INTERESTS = shuffle(INTERESTS);

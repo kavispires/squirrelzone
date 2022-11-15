@@ -117,6 +117,7 @@ export interface Trait {
   description: string;
   type: string;
   group: string;
+  track?: "";
   setup: {
     set?: TraitUpdateAction;
     update: TraitUpdateAction;

@@ -6,7 +6,7 @@ type DataEntryPersonalityProps = {
 };
 export function DataEntryPersonality({ label, value }: DataEntryPersonalityProps) {
   const pos = (100 * (4.5 + value)) / 11;
-  console.log({ label, value, pos });
+
   return (
     <div className="card-data-personality">
       <span className="card-data-personality__label">{label}</span>
