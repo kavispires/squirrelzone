@@ -1,8 +1,16 @@
-import _, { shuffle } from "lodash";
+import _ from "lodash";
 import { AGES, TRACK, VARIATIONS, VARIATION_KEYS } from "./constants";
-import { getRandomItem, getRandomNumber } from "./helpers";
-import { SHUFFLED_TRAITS } from "./traits";
-import { Contestant, Trait } from "./types";
+import { getRandomItem, getRandomNumber, shuffle } from "./helpers";
+import { SHUFFLED_INTERESTS, SHUFFLED_TRAITS } from "./traits";
+import {
+  Appearance,
+  Contestant,
+  NumericVariant16,
+  NumericVariant32,
+  NumericVariant4,
+  NumericVariant8,
+  Trait,
+} from "./types";
 
 /**
  * Generates a contestant id based of their name
@@ -40,14 +48,25 @@ export function generateContestantAge(): number {
 }
 
 /**
- * Updates contestant given property with given value
+ * Sets contestant given property with given value
  * @param contestant
  * @param path
  * @param value
  * @returns
  */
-export function updateContestant(contestant: Contestant, path: string, value: any): Contestant {
+export function setContestant(contestant: Contestant, path: string, value: any): Contestant {
   return _.set(contestant, path, value);
+}
+
+/**
+ * Sets contestant given property with given value
+ * @param contestant
+ * @param path
+ * @param value
+ * @returns
+ */
+export function updateContestantValue(contestant: Contestant, path: string, value: number): Contestant {
+  return _.update(contestant, path, (n: number) => n + value);
 }
 
 /**
@@ -77,20 +96,28 @@ export function buildStageStats(contestant: Contestant) {
   let currentStat = untrackedStat1;
 
   // Vocals
-  updateContestant(
+  setContestant(
     contestant,
     "stats.stage.vocal",
     contestant.track === TRACK.VOCAL ? trackedStat : currentStat
   );
   currentStat = contestant.track === TRACK.VOCAL ? currentStat : untrackedStat2;
 
-  updateContestant(contestant, "stats.stage.rap", contestant.track === TRACK.RAP ? trackedStat : currentStat);
+  setContestant(contestant, "stats.stage.rap", contestant.track === TRACK.RAP ? trackedStat : currentStat);
   currentStat = contestant.track === TRACK.RAP ? currentStat : untrackedStat2;
 
-  updateContestant(
+  setContestant(
     contestant,
     "stats.stage.dance",
     contestant.track === TRACK.DANCE ? trackedStat : currentStat
+  );
+}
+
+export function getVariant32Values() {
+  return shuffle(
+    Array(32)
+      .fill(0)
+      .map((e, i) => e + i)
   );
 }
 
@@ -112,31 +139,38 @@ export function buildGeneralStats(contestant: Contestant, max: number) {
   const shuffledResults = shuffle(result);
 
   keys.forEach((key, index) => {
-    updateContestant(contestant, `stats.general.${key}`, shuffledResults[index]);
+    setContestant(contestant, `stats.general.${key}`, shuffledResults[index]);
   });
 }
 
 export function buildSkillsStats(contestant: Contestant) {
-  const values = Array(6)
-    .fill(0)
-    .map((_) => Math.random());
-
-  const keys = ["learning", "memory", "style", "sanity", "stamina", "luck"];
-
-  keys.forEach((key, index) => {
-    updateContestant(contestant, `stats.skills.${key}`, Math.round(values[index] * 100) / 100);
-  });
+  // Learning (min: 0.5)
+  setContestant(contestant, "stats.skills.learning", Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  // Memory (min: 0.5)
+  setContestant(contestant, "stats.skills.memory", Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  // Style (no minimum)
+  setContestant(contestant, "stats.skills.style", Math.round(Math.random() * 100) / 100);
+  // Memory (min: 0.75)
+  setContestant(contestant, "stats.skills.sanity", Math.max(0.75, Math.round(Math.random() * 100) / 100));
+  // Stamina (min: 0.5)
+  setContestant(contestant, "stats.skills.stamina", Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  // Luck (no minimum)
+  setContestant(contestant, "stats.skills.luck", Math.round(Math.random() * 100) / 100);
 }
 
 const usedTraits: Record<string, boolean> = {};
 
-export function distributeTraits(contestant: Contestant) {
-  // Gather 3 unique traits
+/**
+ * Gather N unique trais for a contestant
+ * @param contestant
+ * @param quantity
+ */
+export function distributeTraits(contestant: Contestant, quantity = 3, kind = "traits") {
   const contestantTraits: Trait[] = [];
   const contestantGroups: Record<string, boolean> = {};
   let index = 0;
-  while (contestantTraits.length < 3) {
-    const selectedTrait = SHUFFLED_TRAITS[index];
+  while (contestantTraits.length < quantity || index >= SHUFFLED_TRAITS.length) {
+    const selectedTrait = kind === "traits" ? SHUFFLED_TRAITS[index] : SHUFFLED_INTERESTS[index];
     const { keyword, type, group } = selectedTrait;
     const groupKey = `${type}-${group}`;
     // If it is not a used trait and not in a contestant used group
@@ -151,15 +185,11 @@ export function distributeTraits(contestant: Contestant) {
   // Apply setup
   contestantTraits.forEach((trait) => {
     Object.entries(trait.setup.update).forEach(([path, value]) => {
-      updateContestant(contestant, path, value);
+      updateContestantValue(contestant, path, value);
     });
   });
 
-  updateContestant(
-    contestant,
-    "keywords",
-    contestantTraits.map((t) => t.keyword)
-  );
+  setContestant(contestant, "keywords", [...contestant.keywords, ...contestantTraits.map((t) => t.keyword)]);
 }
 
 export function determineAlignment(contestant: Contestant) {
@@ -193,8 +223,8 @@ export function determineAlignment(contestant: Contestant) {
   y = updateAxis(x, determineValue(contestant.stats.personality.sincerity * -1));
   // Happiness
 
-  updateContestant(contestant, "stats.alignment.x", x);
-  updateContestant(contestant, "stats.alignment.y", y);
+  setContestant(contestant, "stats.alignment.x", x);
+  setContestant(contestant, "stats.alignment.y", y);
 }
 
 function cleanupD6(value: number) {
@@ -227,41 +257,101 @@ function cleanupRange(value: number) {
 export function cleanupStats(contestant: Contestant) {
   // Stage
   Object.entries(contestant.stats.stage).forEach(([key, value]) => {
-    updateContestant(contestant, `stats.stage.${key}`, cleanupD6(value));
+    setContestant(contestant, `stats.stage.${key}`, cleanupD6(value));
   });
   // General
   Object.entries(contestant.stats.general).forEach(([key, value]) => {
-    updateContestant(contestant, `stats.general.${key}`, cleanupD6(value));
+    setContestant(contestant, `stats.general.${key}`, cleanupD6(value));
   });
   // Skills
   Object.entries(contestant.stats.skills).forEach(([key, value]) => {
-    updateContestant(contestant, `stats.skills.${key}`, cleanupPercentage(value));
+    setContestant(contestant, `stats.skills.${key}`, cleanupPercentage(value));
   });
   // Personality
   Object.entries(contestant.stats.personality).forEach(([key, value]) => {
-    updateContestant(contestant, `stats.personality.${key}`, cleanupRange(value));
+    setContestant(contestant, `stats.personality.${key}`, cleanupRange(value));
   });
   // Multipliers
   Object.entries(contestant.stats.multipliers).forEach(([key, value]) => {
-    updateContestant(contestant, `stats.multipliers.${key}`, cleanupMultiplier(value));
+    setContestant(contestant, `stats.multipliers.${key}`, cleanupMultiplier(value));
   });
 }
 
 export function determinePersonalityType(contestant: Contestant) {
-  const types: string[] = ["E", "N", "T", "J"];
-  // Extroverts vs Introverts
-  types[0] = contestant.stats.personality.extroversion > 0 ? "E" : "I";
-  // Sensors vs Intuitives
-  if (contestant.stats.personality.sensitivity > 0) types[1] = "S";
-  if (contestant.stats.personality.curiosity > 0) types[1] = "N";
-  // Thinkers vs Feelers
-  if (contestant.stats.personality.sensitivity < 0) types[2] = "T";
-  if (contestant.stats.personality.gentleness > 0) types[2] = "F";
-  // Judgers vs Perceivers
-  if (contestant.stats.personality.sincerity < 0) types[3] = "J";
-  if (contestant.stats.personality.sensitivity < 0) types[3] = "P";
+  const counts = {
+    E: 0,
+    I: 0,
+    S: 0,
+    N: 0,
+    T: 0,
+    F: 0,
+    J: 0,
+    P: 0,
+  };
+  // Extroverts
+  if (contestant.stats.personality.extroversion > 0) {
+    counts.E += contestant.stats.personality.extroversion;
+  }
+  // Introverts
+  if (contestant.stats.personality.extroversion < 0) {
+    counts.I += contestant.stats.personality.extroversion;
+  }
+  // Sensors
+  if (contestant.stats.personality.intelligence > 0) {
+    counts.S += contestant.stats.personality.intelligence;
+  }
+  if (contestant.stats.personality.curiosity < 0) {
+    counts.S += contestant.stats.personality.curiosity;
+  }
+  // Intuitives
+  if (contestant.stats.personality.curiosity > 0) {
+    counts.N += contestant.stats.personality.curiosity;
+  }
+  if (contestant.stats.personality.intelligence < 0) {
+    counts.N += contestant.stats.personality.intelligence;
+  }
+  if (contestant.stats.personality.sensitivity > 0) {
+    counts.N += contestant.stats.personality.sensitivity;
+  }
+  // Thinkers
+  if (contestant.stats.personality.intelligence > 0) {
+    counts.T += contestant.stats.personality.intelligence;
+  }
+  if (contestant.stats.personality.sensitivity < 0) {
+    counts.F += contestant.stats.personality.sensitivity;
+  }
+  // Feelers
+  if (contestant.stats.personality.sincerity > 0) {
+    counts.F += contestant.stats.personality.sincerity;
+  }
+  if (contestant.stats.personality.sensitivity > 0) {
+    counts.F += contestant.stats.personality.sensitivity;
+  }
+  // Judgers
+  if (contestant.stats.personality.discipline > 0) {
+    counts.J += contestant.stats.personality.discipline;
+  }
+  if (contestant.stats.personality.sincerity < 0) {
+    counts.J += contestant.stats.personality.sincerity;
+  }
+  if (contestant.stats.personality.gentleness < 0) {
+    counts.J += contestant.stats.personality.gentleness;
+  }
+  // Perceivers
+  if (contestant.stats.personality.discipline < 0) {
+    counts.P += contestant.stats.personality.discipline;
+  }
+  if (contestant.stats.personality.gentleness > 0) {
+    counts.P += contestant.stats.personality.gentleness;
+  }
 
-  updateContestant(contestant, `personalityType.type`, types.join(""));
+  const types: string[] = ["E", "N", "T", "J"];
+  types[0] = counts.E > counts.I ? "E" : "I";
+  types[1] = counts.N > counts.S ? "N" : "S";
+  types[2] = counts.T > counts.F ? "T" : "F";
+  types[3] = counts.J > counts.P ? "J" : "P";
+
+  setContestant(contestant, `personalityType.type`, types.join(""));
 }
 
 export function generateRelationships(contestants: Record<string, Contestant>) {
@@ -272,4 +362,84 @@ export function generateRelationships(contestants: Record<string, Contestant>) {
       }
     });
   });
+}
+
+export function generateHSLAColors(saturation: number, lightness: number, alpha: number, amount: number) {
+  let colors = [];
+  let hueDelta = Math.trunc(360 / amount);
+
+  for (let i = 0; i < amount; i++) {
+    let hue = i * hueDelta;
+    colors.push({
+      hue,
+      saturation,
+      lightness,
+    });
+  }
+
+  return colors;
+}
+
+export function generateDNA(contestant: Contestant) {
+  const dna: number[] = [
+    _.get(contestant, "appearance.fur.color"),
+    _.get(contestant, "appearance.fur.type"),
+    _.get(contestant, "appearance.snout.color"),
+    _.get(contestant, "appearance.snout.nose"),
+    _.get(contestant, "appearance.eye.color"),
+    _.get(contestant, "appearance.eye.lids"),
+    _.get(contestant, "appearance.mouth.type"),
+    _.get(contestant, "appearance.hair.bangs"),
+    _.get(contestant, "appearance.hair.color"),
+    _.get(contestant, "appearance.hair.type"),
+    _.get(contestant, "appearance.face.hair"),
+    _.get(contestant, "appearance.face.variations"),
+    _.get(contestant, "appearance.accessories.arm"),
+    _.get(contestant, "appearance.accessories.ear"),
+    _.get(contestant, "appearance.accessories.eyebrow"),
+    _.get(contestant, "appearance.accessories.eyes"),
+    _.get(contestant, "appearance.accessories.head"),
+    _.get(contestant, "appearance.accessories.nose"),
+  ];
+
+  return dna.join(":");
+}
+
+export function parseDNA(dna: string): Appearance {
+  const splitDNA = dna.split(":").map((v) => Number(v));
+
+  return {
+    fur: {
+      color: splitDNA[0] as NumericVariant16,
+      type: splitDNA[1] as NumericVariant4,
+    },
+    snout: {
+      color: splitDNA[2] as NumericVariant4,
+      nose: splitDNA[3] as NumericVariant8,
+    },
+    eye: {
+      color: splitDNA[4] as NumericVariant16,
+      lids: splitDNA[5] as NumericVariant16,
+    },
+    mouth: {
+      type: splitDNA[6] as NumericVariant32,
+    },
+    face: {
+      hair: splitDNA[7] as NumericVariant16,
+      variations: splitDNA[8] as NumericVariant16,
+    },
+    hair: {
+      bangs: splitDNA[9] as NumericVariant32,
+      color: splitDNA[10] as NumericVariant16,
+      type: splitDNA[11] as NumericVariant32,
+    },
+    accessories: {
+      arm: splitDNA[12] as NumericVariant16,
+      ear: splitDNA[13] as NumericVariant4,
+      eyebrow: splitDNA[14] as NumericVariant4,
+      eyes: splitDNA[15] as NumericVariant4,
+      head: splitDNA[16] as NumericVariant4,
+      nose: splitDNA[17] as NumericVariant4,
+    },
+  };
 }

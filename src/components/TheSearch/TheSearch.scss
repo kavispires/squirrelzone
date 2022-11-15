@@ -1,0 +1,16 @@
+.the-search-layout {
+  height: 100vh;
+}
+
+.the-search-header {
+  color: white !important;
+  display: flex;
+  justify-content: space-between;
+}
+
+.the-search-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

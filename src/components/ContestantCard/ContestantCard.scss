@@ -4,6 +4,7 @@
   --disabled-text-color: rgba(0, 0, 0, 0.1);
   --yellow-accent: rgb(250, 220, 20);
   --unit: 4px;
+  --unit-2: 8px;
 }
 
 .contestant-card {
@@ -11,7 +12,7 @@
 
   &__divider {
     &--short {
-      margin: 8px 0;
+      margin: var(--unit-2) 0;
     }
   }
 }
@@ -23,7 +24,7 @@
   grid-template-areas:
     "avatar name"
     "avatar pos";
-  gap: 8px;
+  gap: var(--unit-2);
 
   &__avatar {
     grid-area: avatar;
@@ -51,8 +52,8 @@
 
   &__label {
     color: var(--secondary-text-color);
-    margin: 2px 4px 2px 0;
-    padding: 0 4px;
+    margin: 2px var(--unit) 2px 0;
+    padding: 0 var(--unit);
     border-left: 3px solid var(--secondary-text-color);
     width: 50%;
   }
@@ -66,9 +67,19 @@
   }
 }
 
+.card-data-grid {
+  display: grid;
+  gap: 2px;
+}
+
 .card-data-group {
   display: grid;
   gap: 2px;
+
+  &__label {
+    font-weight: bolder;
+    font-size: 0.9em;
+  }
 }
 
 .data-value {
@@ -141,10 +152,10 @@ $label-v: 15px;
 
   &__box {
     background: white;
-    margin: 4px;
+    margin: var(--unit);
     border: 1px solid var(--secondary-text-color);
-    width: $box-size - 8px;
-    height: $box-size - 8px;
+    width: $box-size - var(--unit-2);
+    height: $box-size - var(--unit-2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -153,7 +164,7 @@ $label-v: 15px;
       border: 3px solid var(--yellow-accent);
       color: var(--yellow-accent);
       font-weight: bold;
-      border-radius: 4px;
+      border-radius: var(--unit);
     }
   }
 }
@@ -163,16 +174,42 @@ $label-v: 15px;
   align-items: center;
   width: 100%;
 
+  &__bar {
+    background-color: var(--disabled-text-color);
+    width: 60px;
+    height: var(--unit-2);
+    border-radius: var(--unit);
+    position: relative;
+  }
+
+  &__bullet {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--unit-2);
+    height: var(--unit-2);
+    border-radius: var(--unit);
+    background-color: var(--yellow-accent);
+  }
+
   &__label {
     color: var(--secondary-text-color);
-    margin: 2px 4px 2px 0;
-    padding: 0 4px;
+    margin: 2px var(--unit) 2px 0;
+    padding: 0 var(--unit);
     border-left: 3px solid var(--secondary-text-color);
     width: 50%;
   }
 
   &__value {
-    text-align: left;
+    text-align: center;
+    margin-left: var(--unit-2);
+    font-size: 65%;
+    background-color: var(--disabled-text-color);
+    color: var(--secondary-text-color);
+    width: 1.75em;
+    height: 1.75em;
+    line-height: 1.75em;
+    border-radius: 50%;
   }
 }
 

@@ -2,6 +2,7 @@ import type {
   Build,
   Contestant,
   Height,
+  HSLColor,
   NumericVariant16,
   NumericVariant4,
   NumericVariant8,
@@ -19,26 +20,43 @@ import {
   distributeTraits,
   generateContestantAge,
   generateContestantId,
+  generateDNA,
+  generateHSLAColors,
   generateRelationships,
   getVariant,
+  getVariant32Values,
 } from "./contestant-helpers";
 import { TRACK, VARIATION_KEYS } from "./constants";
 
 const usedNames: string[] = [];
 
-export function createContestant() {
-  const name = getRandomUniqueItem(NAMES, usedNames);
+type Options = {
+  name?: string;
+  color?: HSLColor;
+};
+
+const HAIR_TYPES = getVariant32Values();
+
+export function createContestant(index: number, options?: Options) {
+  const name = options?.name || getRandomUniqueItem(NAMES, usedNames);
   usedNames.push(name);
   const id = generateContestantId(name);
 
   const newContestant: Contestant = {
     id,
     name,
+    status: "ACTIVE",
+    color: options?.color ?? {
+      hue: 0,
+      saturation: 0,
+      lightness: 40,
+    },
     type: "contestant",
     age: generateContestantAge(),
     species: "squirrel",
     height: getVariant(VARIATION_KEYS.HEIGHT, true) as Height,
     build: getVariant(VARIATION_KEYS.BUILD, true) as Build,
+    dna: "",
     appearance: {
       fur: {
         color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
@@ -53,16 +71,16 @@ export function createContestant() {
         lids: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
       },
       mouth: {
-        type: 0,
+        type: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
       },
       face: {
         variations: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
         hair: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
       },
       hair: {
-        type: 0,
-        bangs: 0,
-        color: 0,
+        type: HAIR_TYPES[index],
+        bangs: HAIR_TYPES[index],
+        color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
       },
       accessories: {
         ear: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
@@ -101,6 +119,7 @@ export function createContestant() {
         memory: 0.5,
         sanity: 0.5,
         stamina: 0.5,
+        adaptability: 0.5,
       },
       personality: {
         discipline: 0,
@@ -109,6 +128,7 @@ export function createContestant() {
         sensitivity: 0,
         gentleness: 0,
         sincerity: 0,
+        intelligence: 0,
         happiness: 0,
       },
       multipliers: {
@@ -142,13 +162,16 @@ export function createContestant() {
   buildStageStats(newContestant);
 
   // Add General Stats making a total of 21 points
-  buildGeneralStats(newContestant, 21);
+  buildGeneralStats(newContestant, 0);
 
   // Add Skills Stats
-  buildSkillsStats(newContestant);
+  // buildSkillsStats(newContestant);
 
   // Distribute traits
-  distributeTraits(newContestant);
+  distributeTraits(newContestant, 4, "traits");
+
+  // Distribute interests
+  distributeTraits(newContestant, 1, "interests");
 
   // TODO: Create appearance
 
@@ -164,17 +187,24 @@ export function createContestant() {
   determinePersonalityType(newContestant);
 
   // TODO: Generate DNA (svg key)
+  newContestant.dna = generateDNA(newContestant);
 
   return newContestant;
 }
 
 export function createContestants(quantity = 12) {
+  const colors = [
+    ...generateHSLAColors(90, 60, 1.0, quantity / 3 + 3),
+    ...generateHSLAColors(70, 50, 1.0, quantity / 3 + 5),
+    ...generateHSLAColors(30, 80, 1.0, quantity / 3 + 7),
+  ];
+
   const contestants: Record<string, Contestant> = {};
 
   Array(quantity)
     .fill(0)
-    .forEach((_) => {
-      const newContestant = createContestant();
+    .forEach((_, index) => {
+      const newContestant = createContestant(index, { color: colors[index] });
       contestants[newContestant.id] = newContestant;
     });
 

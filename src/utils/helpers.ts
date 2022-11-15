@@ -95,3 +95,11 @@ export const getLastItem = <T>(list: T[]): T => {
 export const getPercentage = (value: number, total: number): number => {
   return Math.round((100 * value) / total);
 };
+
+/**
+ * Pauses during presentation
+ * @param duration
+ */
+export const wait = async (duration = 1000) => {
+  return await new Promise((resolve) => setTimeout(resolve, duration));
+};

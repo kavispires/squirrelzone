@@ -158,3 +158,30 @@ export const VARIATIONS = {
   [VARIATION_KEYS.D6_STATS_TRACKED]: D6_STATS_TRACKED,
   [VARIATION_KEYS.D6_STATS_UNTRACKED]: D6_STATS_UNTRACKED,
 };
+
+export const MULTIPLIER = {
+  POSITIVE: 0.025,
+  NEGATIVE: -0.025,
+  ULTRA: 0.25,
+};
+
+export const PERCENTAGE = {
+  UP: 0.1,
+  DOWN: -0.1,
+  MAX: 0.85,
+  MIN: 0.15,
+};
+
+export const RANGE = {
+  MOST: 5,
+  MORE: 3,
+  SOME: 1,
+  BIT: -1,
+  LESS: -3,
+  LEAST: -5,
+};
+
+export const D6 = {
+  ADD: 1,
+  SUBTRACT: -1,
+};

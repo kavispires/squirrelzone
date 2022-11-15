@@ -2,12 +2,13 @@ import { ReactNode } from "react";
 
 type DataGroupProps = {
   children: ReactNode;
-  cols?: number;
+  label: ReactNode;
 };
-export function DataGroup({ cols = 1, children }: DataGroupProps) {
+export function DataGroup({ label, children }: DataGroupProps) {
   return (
-    <div className="card-data-group" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
-      {children}
+    <div className="card-data-group">
+      <span className="card-data-group__label">{label}</span>
+      <div className="card-data-group__content">{children}</div>
     </div>
   );
 }

@@ -1,31 +1,7 @@
-import { shuffle } from "./helpers";
-import { Trait } from "./types";
+import { D6, MULTIPLIER, PERCENTAGE, RANGE } from "../constants";
+import { Trait } from "../types";
 
-const MULTIPLIER = {
-  POSITIVE: 0.025,
-  NEGATIVE: -0.025,
-  ULTRA: 0.25,
-};
-const PERCENTAGE = {
-  POSITIVE: 0.1,
-  NEGATIVE: -0.1,
-  GOOD: 0.85,
-  BAD: 0.15,
-};
-const RANGE = {
-  MOST: 5,
-  MORE: 3,
-  SOME: 1,
-  BIT: -1,
-  LESS: -3,
-  LEAST: -5,
-};
-const D6 = {
-  ADD: 1,
-  SUBTRACT: -1,
-};
-
-const TRAITS: Trait[] = [
+export const COMMON_TRAITS: Trait[] = [
   {
     keyword: "ADAPTABLE",
     title: "Adaptable",
@@ -35,7 +11,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.discipline": RANGE.MORE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.general.stagePresence": D6.ADD,
       },
     },
@@ -50,7 +26,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.MOST,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -77,8 +53,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.SOME,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
         "stats.general.stagePresence": D6.ADD,
       },
     },
@@ -92,8 +68,8 @@ const TRAITS: Trait[] = [
     group: "flaw",
     setup: {
       update: {
-        "stats.personality.gentleness": RANGE.MORE,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
+        "stats.personality.gentleness": RANGE.LEAST,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -107,7 +83,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.sensitivity": RANGE.MORE,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
         "stats.general.stagePresence": D6.SUBTRACT,
       },
     },
@@ -123,6 +99,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.extroversion": RANGE.MORE,
         "stats.general.leadership": D6.ADD,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -135,9 +112,9 @@ const TRAITS: Trait[] = [
     group: "health",
     setup: {
       update: {
-        "stats.skills.stamina": PERCENTAGE.BAD,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.skills.stamina": PERCENTAGE.MIN,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -179,7 +156,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.extroversion": RANGE.BIT,
         "stats.personality.gentleness": RANGE.SOME,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
         "stats.general.visual": D6.ADD,
       },
     },
@@ -194,7 +171,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.discipline": RANGE.BIT,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
       },
     },
     effect: "TBD",
@@ -208,7 +185,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.BIT,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
         "stats.general.rhetoric": D6.ADD,
         "stats.general.leadership": D6.ADD,
       },
@@ -224,8 +201,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.extroversion": RANGE.MORE,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
-        "stats.multiplier.notability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
         "stats.general.charisma": D6.ADD,
         "stats.general.stagePresence": D6.ADD,
       },
@@ -248,16 +225,16 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "BUBBLE GUM",
-    title: "Bubble gum",
+    keyword: "BUBBLY",
+    title: "Bubbly",
     description: "",
     type: "personality",
     group: "identity",
     setup: {
       update: {
         "stats.personality.sensitivity": RANGE.SOME,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.general.stagePresence": D6.ADD,
         "stats.general.leadership": D6.SUBTRACT,
       },
@@ -273,7 +250,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.LEAST,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
         "stats.general.leadership": D6.ADD,
         "stats.general.charisma": D6.SUBTRACT,
       },
@@ -289,8 +266,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.MORE,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.notability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
       },
     },
     effect: "TBD",
@@ -303,12 +280,12 @@ const TRAITS: Trait[] = [
     group: "special",
     setup: {
       update: {
-        "stats.skills.learning": PERCENTAGE.GOOD,
-        "stats.skills.memory": PERCENTAGE.GOOD,
-        "stats.skills.style": PERCENTAGE.GOOD,
+        "stats.skills.learning": PERCENTAGE.MAX,
+        "stats.skills.memory": PERCENTAGE.MAX,
+        "stats.multipliers.style": PERCENTAGE.MAX,
         "stats.skills.sanity": D6.SUBTRACT,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.general.stagePresence": D6.ADD,
         "stats.general.leadership": D6.ADD,
         "stats.general.rhetoric": D6.SUBTRACT,
@@ -325,8 +302,8 @@ const TRAITS: Trait[] = [
     group: "history",
     setup: {
       update: {
-        "stats.skills.learning": PERCENTAGE.GOOD,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
+        "stats.skills.learning": PERCENTAGE.MAX,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
         "stats.general.stagePresence": D6.ADD,
         "stats.stage.dance": D6.ADD,
       },
@@ -342,8 +319,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.extroversion": RANGE.BIT,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -357,7 +334,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.LESS,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
         "stats.general.stagePresence": D6.ADD,
       },
     },
@@ -372,7 +349,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.happiness": RANGE.LESS,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
       },
     },
     effect: "TBD",
@@ -386,7 +363,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.LEAST,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.personality.happiness": RANGE.BIT,
       },
     },
@@ -402,6 +379,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.curiosity": RANGE.LESS,
         "stats.general.stagePresence": D6.SUBTRACT,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -415,7 +393,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.MORE,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -429,7 +407,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.BIT,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -443,8 +421,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.SOME,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -458,7 +436,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.MORE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.general.charisma": D6.ADD,
       },
     },
@@ -515,7 +493,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.MORE,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
       },
     },
     effect: "TBD",
@@ -529,8 +507,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.SOME,
-        "stats.multiplier.likeability": MULTIPLIER.POSITIVE,
-        "stats.multiplier.notability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.likeability": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.general.visual": D6.SUBTRACT,
         "stats.general.stagePresence": D6.ADD,
         "stats.general.leadership": D6.SUBTRACT,
@@ -547,7 +525,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.gentleness": RANGE.LEAST,
-        "stats.multiplier.likeability": MULTIPLIER.NEGATIVE,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
       },
     },
     effect: "TBD",
@@ -560,8 +538,8 @@ const TRAITS: Trait[] = [
     group: "history",
     setup: {
       update: {
-        "stats.skills.learning": PERCENTAGE.POSITIVE,
-        "stats.skills.sanity": PERCENTAGE.POSITIVE,
+        "stats.skills.learning": PERCENTAGE.UP,
+        "stats.skills.sanity": PERCENTAGE.UP,
       },
     },
     effect: "TBD",
@@ -574,8 +552,8 @@ const TRAITS: Trait[] = [
     group: "history",
     setup: {
       update: {
-        "stats.skills.learning": PERCENTAGE.POSITIVE,
-        "stats.skills.sanity": PERCENTAGE.POSITIVE,
+        "stats.skills.learning": PERCENTAGE.UP,
+        "stats.skills.sanity": PERCENTAGE.UP,
       },
     },
     effect: "TBD",
@@ -668,7 +646,8 @@ const TRAITS: Trait[] = [
     group: "flaw",
     setup: {
       update: {
-        "stats.personality.TBD": 0,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.personality.sincerity": RANGE.LESS,
       },
     },
     effect: "TBD",
@@ -682,12 +661,13 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.extroversion": RANGE.SOME,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
   },
   {
-    keyword: "EMOTIONAL EYES",
+    keyword: "EMOTIONAL_EYES",
     title: "Emotional eyes",
     description: "",
     type: "feature",
@@ -713,7 +693,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "EXTRA FINGER",
+    keyword: "EXTRA_FINGER",
     title: "Extra finger",
     description: "",
     type: "feature",
@@ -727,7 +707,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "EXTRA TOE",
+    keyword: "EXTRA_TOE",
     title: "Extra toe",
     description: "",
     type: "secret",
@@ -842,7 +822,7 @@ const TRAITS: Trait[] = [
     group: "appearance",
     setup: {
       update: {
-        "stats.skills.stamina": PERCENTAGE.GOOD,
+        "stats.skills.stamina": PERCENTAGE.MAX,
         "stats.multipliers.notability": MULTIPLIER.POSITIVE,
       },
     },
@@ -964,7 +944,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "GIGGLES A LOT",
+    keyword: "GIGGLES_A_LOT",
     title: "Giggles a lot",
     description: "",
     type: "feature",
@@ -1023,8 +1003,8 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "HATES_EVERYTHING",
-    title: "Hates everything",
+    keyword: "HATER",
+    title: "Hater",
     description: "",
     type: "personality",
     group: "mood",
@@ -1087,6 +1067,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.sincerity": RANGE.LEAST,
         "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -1143,6 +1124,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.discipline": RANGE.MORE,
         "stats.multipliers.luck": MULTIPLIER.POSITIVE,
+        "stats.personality.intelligence": RANGE.MOST,
       },
     },
     effect: "TBD",
@@ -1173,7 +1155,8 @@ const TRAITS: Trait[] = [
         "stats.personality.extroversion": RANGE.LEAST,
         "stats.general.stagePresence": D6.SUBTRACT,
         "stats.general.charisma": D6.SUBTRACT,
-        "stats.skills.memory": PERCENTAGE.POSITIVE,
+        "stats.skills.memory": PERCENTAGE.UP,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -1206,7 +1189,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "JIGGLING LEGS",
+    keyword: "JIGGLING_LEGS",
     title: "Jiggling legs",
     description: "",
     type: "feature",
@@ -1227,12 +1210,13 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.sincerity": RANGE.MOST,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
   },
   {
-    keyword: "KILLED SOMEONE IN A CAR ACCIDENT",
+    keyword: "KILLED_SOMEONE_IN_A_CAR_ACCIDENT",
     title: "Killed someone in a car accident",
     description: "",
     type: "secret",
@@ -1246,7 +1230,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "KILLER SMILE",
+    keyword: "KILLER_SMILE",
     title: "Killer smile",
     description: "",
     type: "feature",
@@ -1283,14 +1267,15 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.discipline": RANGE.LEAST,
-        "stats.skill.learning": PERCENTAGE.NEGATIVE,
-        "stats.skill.memory": PERCENTAGE.NEGATIVE,
+        "stats.skills.learning": PERCENTAGE.DOWN,
+        "stats.skills.memory": PERCENTAGE.DOWN,
+        "stats.skills.stamina": PERCENTAGE.DOWN,
       },
     },
     effect: "TBD",
   },
   {
-    keyword: "LOST FRIEND IN THE PAST",
+    keyword: "LOST_FRIEND_IN_THE_PAST",
     title: "Lost friend in the past",
     description: "",
     type: "history",
@@ -1312,6 +1297,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.curiosity": RANGE.MORE,
         "stats.stage.rap": D6.ADD,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -1327,6 +1313,7 @@ const TRAITS: Trait[] = [
         "stats.personality.gentleness": RANGE.LEAST,
         "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
         "stats.general.visual": D6.ADD,
+        "stats.personality.intelligence": RANGE.LESS,
       },
     },
     effect: "TBD",
@@ -1341,6 +1328,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.sincerity": RANGE.LEAST,
         "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.personality.intelligence": RANGE.MORE,
       },
     },
     effect: "TBD",
@@ -1362,7 +1350,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "MUMBLES A LOT",
+    keyword: "MUMBLES_A_LOT",
     title: "Mumbles a lot",
     description: "",
     type: "feature",
@@ -1386,7 +1374,8 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.LEAST,
-        "stats.skills.learning": PERCENTAGE.NEGATIVE,
+        "stats.skills.learning": PERCENTAGE.DOWN,
+        "stats.personality.intelligence": RANGE.BIT,
       },
     },
     effect: "TBD",
@@ -1453,7 +1442,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "OPENLY BI",
+    keyword: "OPENLY_BI",
     title: "Openly bi",
     description: "",
     type: "personality",
@@ -1469,7 +1458,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "OPENLY GAY",
+    keyword: "OPENLY_GAY",
     title: "Openly gay",
     description: "",
     type: "personality",
@@ -1485,7 +1474,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "OPENLY TRANS",
+    keyword: "OPENLY_TRANS",
     title: "Openly trans",
     description: "",
     type: "personality",
@@ -1521,6 +1510,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.discipline": RANGE.MORE,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -1580,7 +1570,7 @@ const TRAITS: Trait[] = [
     effect: "TBD",
   },
   {
-    keyword: "PERFECT TEETH",
+    keyword: "PERFECT_TEETH",
     title: "Perfect teeth",
     description: "",
     type: "feature",
@@ -1648,12 +1638,14 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.personality.discipline": RANGE.LEAST,
+        "stats.personality.intelligence": RANGE.LESS,
       },
     },
     effect: "TBD",
   },
   {
-    keyword: "POORLY DRESSED",
+    keyword: "POORLY_DRESSED",
     title: "Poorly dressed",
     description: "",
     type: "feature",
@@ -1845,7 +1837,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.sincerity": RANGE.LESS,
-        "stats.general.stamina": D6.SUBTRACT,
+        "stats.skills.stamina": D6.SUBTRACT,
       },
     },
     effect: "TBD",
@@ -1862,7 +1854,7 @@ const TRAITS: Trait[] = [
         "stats.personality.extroversion": RANGE.MORE,
         "stats.multipliers.notability": MULTIPLIER.POSITIVE,
         "stats.multipliers.style": MULTIPLIER.POSITIVE,
-        "stats.general.stamina": D6.ADD,
+        "stats.skills.stamina": D6.ADD,
         "stats.general.charisma": D6.ADD,
       },
     },
@@ -2196,13 +2188,13 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.curiosity": RANGE.MORE,
-        "stats.skills.memory": PERCENTAGE.POSITIVE,
+        "stats.skills.memory": PERCENTAGE.UP,
       },
     },
     effect: "TBD",
   },
   {
-    keyword: "SPEECH IMPEDIMENT",
+    keyword: "SPEECH_IMPEDIMENT",
     title: "Speech Impediment",
     description: "",
     type: "physical",
@@ -2210,7 +2202,7 @@ const TRAITS: Trait[] = [
     setup: {
       update: {
         "stats.personality.extroversion": RANGE.LESS,
-        "stats.general.rhetoric": PERCENTAGE.NEGATIVE,
+        "stats.general.rhetoric": PERCENTAGE.DOWN,
       },
     },
     effect: "TBD",
@@ -2267,7 +2259,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.extroversion": RANGE.BIT,
         "stats.multipliers.notability": MULTIPLIER.NEGATIVE,
-        "stats.general.rhetoric": PERCENTAGE.NEGATIVE,
+        "stats.general.rhetoric": PERCENTAGE.DOWN,
       },
     },
     effect: "TBD",
@@ -2324,6 +2316,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.discipline": RANGE.MOST,
         "stats.general.leadership": D6.ADD,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -2525,6 +2518,7 @@ const TRAITS: Trait[] = [
       update: {
         "stats.personality.discipline": RANGE.MORE,
         "stats.general.leadership": D6.ADD,
+        "stats.personality.intelligence": RANGE.SOME,
       },
     },
     effect: "TBD",
@@ -2572,12 +2566,294 @@ const TRAITS: Trait[] = [
     },
     effect: "TBD",
   },
+
+  {
+    keyword: "ALCOHOLIC",
+    title: "Alcoholic",
+    description: "",
+    type: "secret",
+    group: "health",
+    setup: {
+      update: {
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.personality.discipline": RANGE.LEAST,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "SMOKER",
+    title: "Smoker",
+    description: "",
+    type: "status",
+    group: "health",
+    setup: {
+      update: {
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AFRAID_OF_HEIGHTS",
+    title: "Afraid of heights",
+    description: "",
+    type: "secret",
+    group: "phobia",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AFRAID_OF_SNAKES",
+    title: "Afraid of snakes",
+    description: "",
+    type: "secret",
+    group: "phobia",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AFRAID_OF_THE_DARK",
+    title: "Afraid of the dark",
+    description: "",
+    type: "secret",
+    group: "phobia",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "MODEL",
+    title: "Model",
+    description: "",
+    type: "status",
+    group: "history",
+    setup: {
+      update: {
+        "stats.general.visual": D6.ADD,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "ACTOR",
+    title: "Actor",
+    description: "",
+    type: "status",
+    group: "history",
+    setup: {
+      update: {
+        "stats.general.charisma": D6.ADD,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "AVOIDANT",
+    title: "Avoidant",
+    description: "",
+    type: "personality",
+    group: "flaw",
+    setup: {
+      update: {
+        "stats.personality.sensitivity": RANGE.MOST,
+        "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "GORGEOUS",
+    title: "Gorgeous",
+    description: "",
+    type: "feature",
+    group: "appearance",
+    setup: {
+      update: {
+        "stats.general.visual": D6.ADD,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "CHILD_ACTOR",
+    title: "Child Actor",
+    description: "",
+    type: "status",
+    group: "history",
+    setup: {
+      update: {
+        "stats.general.charisma": RANGE.MORE,
+        "stats.personality.extroversion": RANGE.SOME,
+        "stats.multipliers.notability": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "PREVIOUSLY_A_STRIPPER",
+    title: "Previously A Stripper",
+    description: "",
+    type: "secret",
+    group: "history",
+    setup: {
+      update: {
+        "stats.personality.extroversion": RANGE.MORE,
+        "stats.general.charisma": RANGE.MOST,
+        "stats.multipliers.style": MULTIPLIER.POSITIVE,
+      },
+    },
+    effect: "TDB",
+  },
+  {
+    keyword: "DUMB",
+    title: "Dumb",
+    description: "",
+    type: "personality",
+    group: "flaw",
+    setup: {
+      update: {
+        "stats.personality.intelligence": RANGE.LEAST,
+      },
+    },
+    effect: "TDB",
+  },
 ];
 
-export const TRAITS_DICT = TRAITS.reduce((acc: Record<string, Trait>, entry) => {
-  acc[entry.keyword] = entry;
+const PERSONALITIES = (() => {
+  return COMMON_TRAITS.filter((t) => t.type === "personality");
+})();
 
-  return acc;
-}, {});
+const getCols = (t: Trait) => {
+  const cols: Record<string, any> = {
+    Stage: [],
+    Stage_value: [],
+    Personality: [],
+    Personality_value: [],
+    Skills: [],
+    Skills_value: [],
+    Multipliers: [],
+    Multipliers_value: [],
+  };
 
-export const SHUFFLED_TRAITS = shuffle(TRAITS);
+  Object.entries(t.setup.update).forEach(([key, val]) => {
+    const [, type, col] = key.split(".");
+    switch (type) {
+      case "stage":
+      case "general":
+        cols.Stage.push(col);
+        cols.Stage_value.push(val === D6.ADD ? "+" : "-");
+        break;
+
+      case "multipliers":
+        cols.Multipliers.push(col);
+        cols.Multipliers_value.push(
+          {
+            [MULTIPLIER.NEGATIVE]: "-",
+            [MULTIPLIER.POSITIVE]: "+",
+            [MULTIPLIER.ULTRA]: "u",
+          }[val]
+        );
+        break;
+      case "skills":
+        cols.Skills.push(col);
+        cols.Skills_value.push(
+          {
+            [PERCENTAGE.DOWN]: "-",
+            [PERCENTAGE.UP]: "+",
+            [PERCENTAGE.MAX]: "+++",
+            [PERCENTAGE.MIN]: "---",
+          }[val]
+        );
+        break;
+      case "personality":
+        cols.Personality.push(col);
+        cols.Personality_value.push(
+          {
+            [RANGE.MOST]: "+++",
+            [RANGE.MORE]: "++",
+            [RANGE.SOME]: "+",
+            [RANGE.BIT]: "-",
+            [RANGE.LESS]: "--",
+            [RANGE.LEAST]: "---",
+          }[val]
+        );
+        break;
+      default:
+        console.log("IDK", key, t);
+    }
+  });
+
+  Object.keys(cols).forEach((colKey) => {
+    cols[colKey] = cols[colKey].join(",");
+  });
+
+  return cols;
+};
+
+const PERSONALITIES_CSV = (() => {
+  return PERSONALITIES.map((t) => {
+    return {
+      Name: t.title,
+      Type: t.type,
+      Group: t.group,
+      Track: "",
+      ...getCols(t),
+    };
+  });
+})();
+
+console.log({ PERSONALITIES_CSV });
+
+const SECRETS = (() => {
+  return COMMON_TRAITS.filter((t) => t.type === "feature");
+})();
+
+const SECRETS_CSV = (() => {
+  return SECRETS.map((t) => {
+    return {
+      Name: t.title,
+      Type: t.type,
+      Group: t.group,
+      Track: "",
+      ...getCols(t),
+    };
+  });
+})();
+
+console.log({ SECRETS_CSV });
+
+const OTHER = (() => {
+  return COMMON_TRAITS.filter((t) => t.type !== "personality" && t.type !== "feature");
+})();
+
+const OTHER_CSV = (() => {
+  return OTHER.map((t) => {
+    return {
+      Name: t.title,
+      Type: t.type,
+      Group: t.group,
+      Track: "",
+      ...getCols(t),
+    };
+  });
+})();
+
+console.log({ OTHER_CSV });

@@ -5,6 +5,7 @@ import { Contestant } from "./utils/types";
 import { ContestantCard } from "./components/ContestantCard";
 import { performEpisode0 } from "./utils/episodes/episode-0";
 import { ContestantSample } from "./components/ContestantCard/ContestantSample";
+import { TheSearch } from "./components/TheSearch";
 
 let CONTESTANTS = orderBy(
   Object.values(createContestants(30)),
@@ -69,6 +70,7 @@ const STATISTICS = calculateStatistics(CONTESTANTS);
 function App() {
   return (
     <div className="App">
+      <TheSearch />
       <div className="summary">
         <span>VOCAL: {STATISTICS.tracks.VOCAL}</span>
         <span>DANCE: {STATISTICS.tracks.DANCE}</span>

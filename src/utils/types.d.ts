@@ -29,6 +29,90 @@ export interface Alignment {
 
 export type TraitUpdateAction = Record<string, number>;
 
+export type HSLColor = {
+  hue: number;
+  saturation: number;
+  lightness: number;
+};
+
+export interface Appearance {
+  fur: {
+    /**
+     * Color of the fur (influences personality)
+     */
+    color: NumericVariant16;
+    /**
+     * Type of fur [simple, hairy, curly, fuzzy] (influences personality and modifies tail)
+     */
+    type: NumericVariant4;
+  };
+  snout: {
+    /**
+     * Color of the snout
+     */
+    color: NumericVariant4;
+    /**
+     * Color of the nose
+     */
+    nose: NumericVariant8;
+  };
+  eye: {
+    /**
+     * Color of the eye
+     */
+    color: NumericVariant16;
+    /**
+     * Eye lids type (influences personality)
+     */
+    lids: NumericVariant16;
+  };
+  mouth: {
+    /**
+     * The mouth style (influences personality)
+     */
+    type: NumericVariant32;
+  };
+  face: {
+    /**
+     * Facial hair like mustache, goatee, beard
+     */
+    hair: NumericVariant16;
+    /**
+     * Variations like marks, freckles, tattoos, acne, moles
+     */
+    variations: NumericVariant16;
+  };
+  hair: {
+    /**
+     * Forehead hair coverage
+     */
+    bangs: NumericVariant32;
+    /**
+     * The color of the hair
+     */
+    color: NumericVariant16;
+    /**
+     * Overall head hair
+     */
+    type: NumericVariant32;
+    /**
+     * When type is #12, a special color is generated
+     */
+    specialColor?: string;
+  };
+  /**
+   * Any accessories like earrings, piercings, sunglasses, hats, tattoos
+   */
+  accessories: {
+    arm: NumericVariant16;
+    ear: NumericVariant4;
+    eyebrow: NumericVariant4;
+    eyes: NumericVariant4;
+    head: NumericVariant4;
+    nose: NumericVariant4;
+  };
+}
+
 export interface Trait {
   keyword: string;
   title: string;
@@ -56,6 +140,14 @@ export interface Contestant {
    */
   name: string;
   /**
+   * The status of the contestant in relation to the show
+   */
+  status: "ACTIVE" | "ELIMINATED";
+  /**
+   * The signature hsl color of the contestant
+   */
+  color: HSLColor;
+  /**
    * The age of the contestant in years
    */
   age: number;
@@ -72,81 +164,13 @@ export interface Contestant {
    */
   build: Build;
   /**
+   *
+   */
+  dna: string;
+  /**
    * Appearance details
    */
-  appearance: {
-    fur: {
-      /**
-       * Color of the fur (influences personality)
-       */
-      color: NumericVariant16;
-      /**
-       * Type of fur [simple, hairy, curly, fuzzy] (influences personality)
-       */
-      type: NumericVariant4;
-    };
-    snout: {
-      /**
-       * Color of the snout
-       */
-      color: NumericVariant4;
-      /**
-       * Color of the nose
-       */
-      nose: NumericVariant8;
-    };
-    eye: {
-      /**
-       * Color of the eye
-       */
-      color: NumericVariant16;
-      /**
-       * Eye lids type (influences personality)
-       */
-      lids: NumericVariant16;
-    };
-    mouth: {
-      /**
-       * The mouth style (influences personality)
-       */
-      type: NumericVariant32;
-    };
-    face: {
-      /**
-       * Variations like marks, freckles, tattoos, acne, moles
-       */
-      variations: NumericVariant16;
-      /**
-       * Facial hair like mustache, goatee, beard
-       */
-      hair: NumericVariant16;
-    };
-    hair: {
-      /**
-       * Overall head hair
-       */
-      type: NumericVariant32;
-      /**
-       * Forehead hair coverage
-       */
-      bangs: NumericVariant32;
-      /**
-       * The color of the hair
-       */
-      color: NumericVariant32;
-    };
-    /**
-     * Any accessories like earrings, piercings, sunglasses, hats, tattoos
-     */
-    accessories: {
-      ear: NumericVariant4;
-      nose: NumericVariant4;
-      eyebrow: NumericVariant4;
-      eyes: NumericVariant4;
-      head: NumericVariant4;
-      arm: NumericVariant16;
-    };
-  };
+  appearance: Appearance;
   /**
    * One of the 3 main tracks a contestant can be in
    */
@@ -208,6 +232,10 @@ export interface Contestant {
        *  Ability to keep up with the routine, practices, and shooting (percentage)
        */
       stamina: number;
+      /**
+       * Ability to adapt to things outside of their comfort zone
+       */
+      adaptability: number;
     };
     /**
      * Personality stats auto-generated based other stats
@@ -237,6 +265,10 @@ export interface Contestant {
        *
        */
       sincerity: PolarRange;
+      /**
+       *
+       */
+      intelligence: PolarRange;
       /**
        *
        */
@@ -327,4 +359,17 @@ export interface Contestant {
    *
    */
   sortingValue: number;
+}
+
+export interface ColorData {
+  rate: number;
+  name: string;
+  hex: string;
+  update: TraitUpdateAction;
+}
+
+export interface AppearanceData {
+  rate: number;
+  name: string;
+  update: TraitUpdateAction;
 }

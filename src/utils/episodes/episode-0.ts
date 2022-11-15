@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { updateContestant } from "../contestant-helpers";
+import { setContestant } from "../contestant-helpers";
 import { getLastItem } from "../helpers";
 import { Contestant, ContestantId } from "../types";
 
@@ -42,27 +42,20 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
 
   const episodeIndex = 0;
   contestants.forEach((contestant) => {
-    updateContestant(
+    setContestant(
       contestant,
       `counts.total.[${episodeIndex}]`,
       Math.round((100 * counts[contestant.id].total) / (bestOverall?.total ?? 1))
     );
 
-    updateContestant(contestant, "sortingValue", getLastItem(contestant.counts.total));
+    setContestant(contestant, "sortingValue", getLastItem(contestant.counts.total));
 
     rankings.push(contestant.sortingValue);
   });
-  console.log(rankings);
+
   rankings.sort((a, b) => b - a);
-  console.log(rankings);
 
   contestants.forEach((contestant) => {
-    updateContestant(
-      contestant,
-      `counts.rank.[${episodeIndex}]`,
-      rankings.indexOf(contestant.sortingValue) + 1
-    );
+    setContestant(contestant, `counts.rank.[${episodeIndex}]`, rankings.indexOf(contestant.sortingValue) + 1);
   });
-
-  console.log(contestants);
 }
