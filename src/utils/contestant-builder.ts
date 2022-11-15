@@ -65,13 +65,11 @@ export function createContestant(index: number, options?: Options) {
       snout: {
         color: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
         nose: getVariant(VARIATION_KEYS.DEFAULT_8_VARIATION) as NumericVariant8,
+        mouth: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
       },
       eye: {
         color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
         lids: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
-      },
-      mouth: {
-        type: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
       },
       face: {
         variations: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,

@@ -34,7 +34,7 @@ export function ContestantCard({ contestant }: ContestantCardProps) {
         </span>,
       ]}
     >
-      <Header contestant={contestant} />
+      <Header contestant={contestant} avatarClassName="contestant-card-avatar" />
 
       <Divider className="contestant-card__divider--short" />
 

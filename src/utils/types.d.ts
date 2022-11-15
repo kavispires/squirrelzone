@@ -55,6 +55,10 @@ export interface Appearance {
      * Color of the nose
      */
     nose: NumericVariant8;
+    /**
+     * The mouth style (influences personality)
+     */
+    mouth: NumericVariant16;
   };
   eye: {
     /**
@@ -65,12 +69,6 @@ export interface Appearance {
      * Eye lids type (influences personality)
      */
     lids: NumericVariant16;
-  };
-  mouth: {
-    /**
-     * The mouth style (influences personality)
-     */
-    type: NumericVariant32;
   };
   face: {
     /**

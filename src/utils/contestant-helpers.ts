@@ -294,21 +294,21 @@ export function determinePersonalityType(contestant: Contestant) {
   }
   // Introverts
   if (contestant.stats.personality.extroversion < 0) {
-    counts.I += contestant.stats.personality.extroversion;
+    counts.I += Math.abs(contestant.stats.personality.extroversion);
   }
   // Sensors
   if (contestant.stats.personality.intelligence > 0) {
     counts.S += contestant.stats.personality.intelligence;
   }
   if (contestant.stats.personality.curiosity < 0) {
-    counts.S += contestant.stats.personality.curiosity;
+    counts.S += Math.abs(contestant.stats.personality.curiosity);
   }
   // Intuitives
   if (contestant.stats.personality.curiosity > 0) {
     counts.N += contestant.stats.personality.curiosity;
   }
   if (contestant.stats.personality.intelligence < 0) {
-    counts.N += contestant.stats.personality.intelligence;
+    counts.N += Math.abs(contestant.stats.personality.intelligence);
   }
   if (contestant.stats.personality.sensitivity > 0) {
     counts.N += contestant.stats.personality.sensitivity;
@@ -318,7 +318,7 @@ export function determinePersonalityType(contestant: Contestant) {
     counts.T += contestant.stats.personality.intelligence;
   }
   if (contestant.stats.personality.sensitivity < 0) {
-    counts.F += contestant.stats.personality.sensitivity;
+    counts.F += Math.abs(contestant.stats.personality.sensitivity);
   }
   // Feelers
   if (contestant.stats.personality.sincerity > 0) {
@@ -332,14 +332,14 @@ export function determinePersonalityType(contestant: Contestant) {
     counts.J += contestant.stats.personality.discipline;
   }
   if (contestant.stats.personality.sincerity < 0) {
-    counts.J += contestant.stats.personality.sincerity;
+    counts.J += Math.abs(contestant.stats.personality.sincerity);
   }
   if (contestant.stats.personality.gentleness < 0) {
-    counts.J += contestant.stats.personality.gentleness;
+    counts.J += Math.abs(contestant.stats.personality.gentleness);
   }
   // Perceivers
   if (contestant.stats.personality.discipline < 0) {
-    counts.P += contestant.stats.personality.discipline;
+    counts.P += Math.abs(contestant.stats.personality.discipline);
   }
   if (contestant.stats.personality.gentleness > 0) {
     counts.P += contestant.stats.personality.gentleness;
@@ -385,10 +385,10 @@ export function generateDNA(contestant: Contestant) {
     _.get(contestant, "appearance.fur.color"),
     _.get(contestant, "appearance.fur.type"),
     _.get(contestant, "appearance.snout.color"),
+    _.get(contestant, "appearance.snout.mouth"),
     _.get(contestant, "appearance.snout.nose"),
     _.get(contestant, "appearance.eye.color"),
     _.get(contestant, "appearance.eye.lids"),
-    _.get(contestant, "appearance.mouth.type"),
     _.get(contestant, "appearance.hair.bangs"),
     _.get(contestant, "appearance.hair.color"),
     _.get(contestant, "appearance.hair.type"),
@@ -415,14 +415,12 @@ export function parseDNA(dna: string): Appearance {
     },
     snout: {
       color: splitDNA[2] as NumericVariant4,
-      nose: splitDNA[3] as NumericVariant8,
+      mouth: splitDNA[3] as NumericVariant16,
+      nose: splitDNA[4] as NumericVariant8,
     },
     eye: {
-      color: splitDNA[4] as NumericVariant16,
-      lids: splitDNA[5] as NumericVariant16,
-    },
-    mouth: {
-      type: splitDNA[6] as NumericVariant32,
+      color: splitDNA[5] as NumericVariant16,
+      lids: splitDNA[6] as NumericVariant16,
     },
     face: {
       hair: splitDNA[7] as NumericVariant16,

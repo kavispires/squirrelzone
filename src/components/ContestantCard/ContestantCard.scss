@@ -222,3 +222,11 @@ $label-v: 15px;
     border-color: var(--disabled-text-color);
   }
 }
+
+.contestant-card-avatar {
+  transition: all 1s;
+
+  &:hover {
+    transform: scale(3);
+  }
+}
