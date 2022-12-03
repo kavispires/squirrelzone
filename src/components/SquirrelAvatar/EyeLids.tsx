@@ -1,5 +1,5 @@
 import { FUR_COLOR } from '../../utils/appearance-constants';
-import { Appearance } from '../../utils/types';
+import { Appearance } from 'types';
 
 type EyeLidsProps = {
   appearance: Appearance;

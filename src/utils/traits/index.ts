@@ -1,5 +1,5 @@
 import { shuffle } from '../helpers';
-import { Trait } from '../types';
+import { Trait } from 'types';
 import { FEATURES } from './features';
 import { HISTORY } from './history';
 import { INTERESTS } from './interests';

@@ -1,0 +1,1 @@
+export { SquirrelAvatar } from './SquirrelAvatar';

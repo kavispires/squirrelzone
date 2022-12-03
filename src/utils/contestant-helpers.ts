@@ -10,7 +10,7 @@ import {
   NumericVariant4,
   NumericVariant8,
   Trait,
-} from './types';
+} from 'types';
 
 /**
  * Generates a contestant id based of their name

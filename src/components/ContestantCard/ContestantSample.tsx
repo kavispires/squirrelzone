@@ -1,7 +1,7 @@
 import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from '@ant-design/icons';
 import { Card, Drawer } from 'antd';
 import { getLastItem } from '../../utils/helpers';
-import type { Contestant } from '../../utils/types';
+import type { Contestant } from 'types';
 
 import { Header } from './Header';
 

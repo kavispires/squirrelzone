@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { setContestant } from '../contestant-helpers';
 import { getLastItem } from '../helpers';
-import { Contestant, ContestantId } from '../types';
+import { Contestant, ContestantId } from 'types';
 
 const OVERALL_SKILLS_POINTS = 100;
 

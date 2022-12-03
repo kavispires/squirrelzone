@@ -1,7 +1,7 @@
 import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from '@ant-design/icons';
 import { Card, Divider, Input } from 'antd';
 import { getLastItem, humanize } from '../../utils/helpers';
-import type { Contestant } from '../../utils/types';
+import type { Contestant } from 'types';
 import { DataEntry } from './DataEntry';
 import { DataGroup } from './DataGroup';
 import { DataValueD6 } from './DataValueD6';
@@ -52,8 +52,8 @@ export function ContestantCard({ contestant }: ContestantCardProps) {
         </DataGroup>
         <DataGroup label="Physical">
           <DataEntry label="Age">{contestant.age}</DataEntry>
-          <DataEntry label="Height">{humanize(contestant.height)}</DataEntry>
-          <DataEntry label="Build">{humanize(contestant.build)}</DataEntry>
+          <DataEntry label="Height">{humanize(contestant.height as string)}</DataEntry>
+          <DataEntry label="Build">{humanize(contestant.build as string)}</DataEntry>
         </DataGroup>
       </DataGrid>
 

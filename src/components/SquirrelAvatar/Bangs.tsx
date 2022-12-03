@@ -1,5 +1,5 @@
 import { HAIR_COLOR } from '../../utils/appearance-constants';
-import { Appearance, HSLColor } from '../../utils/types';
+import { Appearance, HSLColor } from 'types';
 
 type BangsProps = {
   appearance: Appearance;

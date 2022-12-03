@@ -1,4 +1,4 @@
-import { HSLColor } from '../../utils/types';
+import { HSLColor } from 'types';
 
 type BackgroundProps = {
   color: HSLColor;

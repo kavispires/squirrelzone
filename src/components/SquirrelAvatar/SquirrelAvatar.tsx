@@ -1,6 +1,7 @@
 import { memo } from 'react';
+import { HSLColor } from 'types';
 import { parseDNA } from '../../utils/contestant-helpers';
-import { HSLColor } from '../../utils/types';
+
 import { Background } from './Background';
 import { Bangs } from './Bangs';
 import { Body } from './Body';
@@ -12,12 +13,12 @@ import { Mouth } from './Mouth';
 import { Nose } from './Nose';
 import { Tail } from './Tail';
 
-type ContestantAvatarProps = {
+type SquirrelAvatarProps = {
   dna: string;
   className?: string;
   color: HSLColor;
 };
-export const ContestantAvatar = memo<ContestantAvatarProps>(({ color, dna, className }) => {
+export const SquirrelAvatar = memo<SquirrelAvatarProps>(({ dna, color, className }) => {
   const parsedDNA = parseDNA(dna);
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" className={className}>

@@ -1,7 +1,7 @@
 import { StarFilled } from '@ant-design/icons';
 import clsx from 'clsx';
 import { Fragment } from 'react';
-import type { Alignment, ContestantId } from '../../utils/types';
+import type { Alignment, ContestantId } from 'types';
 
 type AlignmentGridProps = {
   id: ContestantId;

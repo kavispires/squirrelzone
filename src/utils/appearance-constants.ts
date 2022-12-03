@@ -1,4 +1,4 @@
-import { AppearanceData, ColorData } from './types';
+import { AppearanceData, ColorData } from 'types';
 
 export const FUR_COLOR: Record<string, ColorData> = {
   0: {

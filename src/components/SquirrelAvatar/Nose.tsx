@@ -1,5 +1,5 @@
 import { NOSE_COLOR } from '../../utils/appearance-constants';
-import { Appearance } from '../../utils/types';
+import { Appearance } from 'types';
 
 type NoseProps = {
   appearance: Appearance;

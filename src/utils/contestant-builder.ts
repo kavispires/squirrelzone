@@ -7,7 +7,7 @@ import type {
   NumericVariant4,
   NumericVariant8,
   Track,
-} from './types';
+} from 'types';
 import NAMES from './names.json';
 import { getRandomItem, getRandomUniqueItem } from './helpers';
 import {
@@ -219,5 +219,5 @@ export function getTrackPosition(track: Track) {
     [TRACK.DANCE]: 'Dancer',
     [TRACK.RAP]: 'Rapper',
     [TRACK.VOCAL]: 'Vocalist',
-  }[track];
+  }[track as string];
 }
