@@ -1,5 +1,5 @@
-import { createGlobalState } from "react-hooks-global-state";
-import { Contestant, ContestantId } from "../utils/types";
+import { createGlobalState } from 'react-hooks-global-state';
+import { Contestant, ContestantId } from '../utils/types';
 
 interface InitialState {
   episode: number;

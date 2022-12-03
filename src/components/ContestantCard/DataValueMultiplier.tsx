@@ -1,4 +1,4 @@
-import { Tooltip } from "antd";
+import { Tooltip } from 'antd';
 
 type DataValueMultiplierProps = {
   value: number;

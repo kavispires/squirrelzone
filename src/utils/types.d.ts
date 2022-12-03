@@ -1,4 +1,4 @@
-import { ALIGNMENT_X_LABELS, ALIGNMENT_Y_LABELS, BUILD, HEIGHT, SIZE, SPECIES, TRACK } from "./constants";
+import { ALIGNMENT_X_LABELS, ALIGNMENT_Y_LABELS, BUILD, HEIGHT, SIZE, SPECIES, TRACK } from './constants';
 
 export type Species = keyof typeof SPECIES;
 export type Height = keyof typeof HEIGHT;
@@ -117,7 +117,7 @@ export interface Trait {
   description: string;
   type: string;
   group: string;
-  track?: "";
+  track?: '';
   setup: {
     set?: TraitUpdateAction;
     update: TraitUpdateAction;
@@ -133,7 +133,7 @@ export interface Contestant {
   /**
    * The type of individual
    */
-  type: "contestant";
+  type: 'contestant';
   /**
    * The name of the contestant
    */
@@ -141,7 +141,7 @@ export interface Contestant {
   /**
    * The status of the contestant in relation to the show
    */
-  status: "ACTIVE" | "ELIMINATED";
+  status: 'ACTIVE' | 'ELIMINATED';
   /**
    * The signature hsl color of the contestant
    */
@@ -177,7 +177,7 @@ export interface Contestant {
   /**
    * Grade given during audition
    */
-  grade: "A" | "B" | "C" | "D" | "F" | null;
+  grade: 'A' | 'B' | 'C' | 'D' | 'F' | null;
   /**
    * Myers–Briggs Type Indicator (auto-generated)
    */

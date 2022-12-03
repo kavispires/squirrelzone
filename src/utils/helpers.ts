@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 /**
  * Shuffle list copy
@@ -74,7 +74,7 @@ export const getRandomUniqueItem = <T>(list: T[], used: T[]): T => {
  * @returns
  */
 export const humanize = (str: string): string => {
-  return _.capitalize(_.trim(_.snakeCase(str).replace(/_id$/, "").replace(/_/g, " ")));
+  return _.capitalize(_.trim(_.snakeCase(str).replace(/_id$/, '').replace(/_/g, ' ')));
 };
 
 /**

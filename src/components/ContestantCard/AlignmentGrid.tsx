@@ -1,14 +1,14 @@
-import { StarFilled } from "@ant-design/icons";
-import clsx from "clsx";
-import { Fragment } from "react";
-import type { Alignment, ContestantId } from "../../utils/types";
+import { StarFilled } from '@ant-design/icons';
+import clsx from 'clsx';
+import { Fragment } from 'react';
+import type { Alignment, ContestantId } from '../../utils/types';
 
 type AlignmentGridProps = {
   id: ContestantId;
   alignment: Alignment;
 };
 
-const axisArr = Array(3).fill("");
+const axisArr = Array(3).fill('');
 
 export function AlignmentGrid({ id, alignment }: AlignmentGridProps) {
   return (
@@ -26,7 +26,7 @@ export function AlignmentGrid({ id, alignment }: AlignmentGridProps) {
                 return (
                   <div
                     key={`${id}-${xIndex}-${yIndex}`}
-                    className={clsx("alignment-grid__box", active && "alignment-grid__box--active")}
+                    className={clsx('alignment-grid__box', active && 'alignment-grid__box--active')}
                   >
                     {active && <StarFilled />}
                   </div>

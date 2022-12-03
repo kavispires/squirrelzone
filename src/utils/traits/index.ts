@@ -1,9 +1,9 @@
-import { shuffle } from "../helpers";
-import { Trait } from "../types";
-import { FEATURES } from "./features";
-import { HISTORY } from "./history";
-import { INTERESTS } from "./interests";
-import { PERSONALITIES } from "./personalities";
+import { shuffle } from '../helpers';
+import { Trait } from '../types';
+import { FEATURES } from './features';
+import { HISTORY } from './history';
+import { INTERESTS } from './interests';
+import { PERSONALITIES } from './personalities';
 
 export const TRAITS_DICT = [...FEATURES, ...HISTORY, ...INTERESTS, ...PERSONALITIES].reduce(
   (acc: Record<string, Trait>, entry) => {

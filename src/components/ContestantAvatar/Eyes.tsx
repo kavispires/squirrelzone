@@ -1,5 +1,5 @@
-import { EYE_COLOR } from "../../utils/appearance-constants";
-import { Appearance } from "../../utils/types";
+import { EYE_COLOR } from '../../utils/appearance-constants';
+import { Appearance } from '../../utils/types';
 
 type EyesProps = {
   appearance: Appearance;

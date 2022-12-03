@@ -7,12 +7,11 @@ import type {
   NumericVariant4,
   NumericVariant8,
   Track,
-} from "./types";
-import NAMES from "./names.json";
-import { getRandomItem, getRandomUniqueItem } from "./helpers";
+} from './types';
+import NAMES from './names.json';
+import { getRandomItem, getRandomUniqueItem } from './helpers';
 import {
   buildGeneralStats,
-  buildSkillsStats,
   buildStageStats,
   cleanupStats,
   determineAlignment,
@@ -25,8 +24,8 @@ import {
   generateRelationships,
   getVariant,
   getVariant32Values,
-} from "./contestant-helpers";
-import { TRACK, VARIATION_KEYS } from "./constants";
+} from './contestant-helpers';
+import { TRACK, VARIATION_KEYS } from './constants';
 
 const usedNames: string[] = [];
 
@@ -45,18 +44,18 @@ export function createContestant(index: number, options?: Options) {
   const newContestant: Contestant = {
     id,
     name,
-    status: "ACTIVE",
+    status: 'ACTIVE',
     color: options?.color ?? {
       hue: 0,
       saturation: 0,
       lightness: 40,
     },
-    type: "contestant",
+    type: 'contestant',
     age: generateContestantAge(),
-    species: "squirrel",
+    species: 'squirrel',
     height: getVariant(VARIATION_KEYS.HEIGHT, true) as Height,
     build: getVariant(VARIATION_KEYS.BUILD, true) as Build,
-    dna: "",
+    dna: '',
     appearance: {
       fur: {
         color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
@@ -92,8 +91,8 @@ export function createContestant(index: number, options?: Options) {
     track: getRandomItem(Object.values(TRACK)) as Track,
     grade: null,
     personalityType: {
-      type: "unknown",
-      name: "unknown",
+      type: 'unknown',
+      name: 'unknown',
     },
     stats: {
       stage: {
@@ -166,16 +165,16 @@ export function createContestant(index: number, options?: Options) {
   // buildSkillsStats(newContestant);
 
   // Distribute personality traits
-  distributeTraits(newContestant, "PERSONALITIES", 3);
+  distributeTraits(newContestant, 'PERSONALITIES', 3);
 
   // // Distribute features
-  distributeTraits(newContestant, "FEATURES", 1);
+  distributeTraits(newContestant, 'FEATURES', 1);
 
   // // Distribute history
-  distributeTraits(newContestant, "HISTORY", 1);
+  distributeTraits(newContestant, 'HISTORY', 1);
 
   // // Distribute interests
-  distributeTraits(newContestant, "INTERESTS", 1);
+  distributeTraits(newContestant, 'INTERESTS', 1);
 
   // TODO: Update stats according to physical appearance
 
@@ -217,8 +216,8 @@ export function createContestants(quantity = 12) {
 
 export function getTrackPosition(track: Track) {
   return {
-    [TRACK.DANCE]: "Dancer",
-    [TRACK.RAP]: "Rapper",
-    [TRACK.VOCAL]: "Vocalist",
+    [TRACK.DANCE]: 'Dancer',
+    [TRACK.RAP]: 'Rapper',
+    [TRACK.VOCAL]: 'Vocalist',
   }[track];
 }

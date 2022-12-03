@@ -1,5 +1,5 @@
-import { FUR_COLOR } from "../../utils/appearance-constants";
-import { Appearance, HSLColor } from "../../utils/types";
+import { FUR_COLOR } from '../../utils/appearance-constants';
+import { Appearance, HSLColor } from '../../utils/types';
 
 type BodyProps = {
   appearance: Appearance;

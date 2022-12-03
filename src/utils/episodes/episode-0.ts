@@ -1,7 +1,7 @@
-import _ from "lodash";
-import { setContestant } from "../contestant-helpers";
-import { getLastItem } from "../helpers";
-import { Contestant, ContestantId } from "../types";
+import _ from 'lodash';
+import { setContestant } from '../contestant-helpers';
+import { getLastItem } from '../helpers';
+import { Contestant, ContestantId } from '../types';
 
 const OVERALL_SKILLS_POINTS = 100;
 
@@ -9,7 +9,7 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
   // Rank contestants by Stage and Performance Stats
   const counts: Record<ContestantId, Record<string, any>> = {};
 
-  const activeContestants = contestants.filter((contestant) => contestant.status === "ACTIVE");
+  const activeContestants = contestants.filter((contestant) => contestant.status === 'ACTIVE');
 
   activeContestants.forEach((contestant) => {
     counts[contestant.id] = {
@@ -23,7 +23,7 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
     counts[contestant.id].total = counts[contestant.id].stageStats + counts[contestant.id].generalStats;
   });
 
-  const bestOverall = _.maxBy(Object.values(counts), "total");
+  const bestOverall = _.maxBy(Object.values(counts), 'total');
 
   console.log({ bestOverall });
 
@@ -44,7 +44,7 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
 
   const episodeIndex = 0;
   contestants.forEach((contestant) => {
-    if (contestant.status === "ACTIVE") {
+    if (contestant.status === 'ACTIVE') {
       setContestant(
         contestant,
         `counts.total.[${episodeIndex}]`,
@@ -55,7 +55,7 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
       setContestant(contestant, `counts.total.[${episodeIndex}]`, 0);
     }
 
-    setContestant(contestant, "sortingValue", getLastItem(contestant.counts.total));
+    setContestant(contestant, 'sortingValue', getLastItem(contestant.counts.total));
 
     rankings.push(contestant.sortingValue);
   });
@@ -64,7 +64,7 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
 
   const usedRanks: Record<string, true> = {};
   contestants.forEach((contestant) => {
-    if (contestant.status === "ACTIVE") {
+    if (contestant.status === 'ACTIVE') {
       let rank = rankings.indexOf(contestant.sortingValue) + 1;
 
       while (usedRanks[rank] !== undefined) {

@@ -1,5 +1,5 @@
-import { FUR_COLOR, SNOUT_COLOR } from "../../utils/appearance-constants";
-import { Appearance } from "../../utils/types";
+import { FUR_COLOR, SNOUT_COLOR } from '../../utils/appearance-constants';
+import { Appearance } from '../../utils/types';
 
 type HeadProps = {
   appearance: Appearance;

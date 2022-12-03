@@ -1,21 +1,21 @@
-import "./App.css";
-import { createContestants } from "./utils/contestant-builder";
-import { mean, orderBy } from "lodash";
-import { Contestant } from "./utils/types";
-import { ContestantCard } from "./components/ContestantCard";
-import { performEpisode0 } from "./utils/episodes/episode-0";
-import { ContestantSample } from "./components/ContestantCard/ContestantSample";
-import { TheSearch } from "./components/TheSearch";
+import './App.css';
+import { createContestants } from './utils/contestant-builder';
+import { mean, orderBy } from 'lodash';
+import { Contestant } from './utils/types';
+import { ContestantCard } from './components/ContestantCard';
+import { performEpisode0 } from './utils/episodes/episode-0';
+import { ContestantSample } from './components/ContestantCard/ContestantSample';
+import { TheSearch } from './components/TheSearch';
 
 let CONTESTANTS = orderBy(
   Object.values(createContestants(30)),
-  ["track", "age", "name"],
-  ["desc", "asc", "asc"]
+  ['track', 'age', 'name'],
+  ['desc', 'asc', 'asc']
 );
 
 performEpisode0({}, CONTESTANTS);
 
-CONTESTANTS = orderBy(CONTESTANTS, ["sortingValue", "track", "age", "name"], ["desc", "desc", "asc", "asc"]);
+CONTESTANTS = orderBy(CONTESTANTS, ['sortingValue', 'track', 'age', 'name'], ['desc', 'desc', 'asc', 'asc']);
 
 const calculateStatistics = (contestants: Contestant[]) => {
   const tracks: Record<string, number> = {};

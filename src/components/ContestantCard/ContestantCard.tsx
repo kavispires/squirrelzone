@@ -1,17 +1,17 @@
-import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from "@ant-design/icons";
-import { Card, Divider, Input } from "antd";
-import { getLastItem, humanize } from "../../utils/helpers";
-import type { Contestant } from "../../utils/types";
-import { DataEntry } from "./DataEntry";
-import { DataGroup } from "./DataGroup";
-import { DataValueD6 } from "./DataValueD6";
-import { DataValuePercentage } from "./DataValuePercentage";
-import "./ContestantCard.scss";
-import { Header } from "./Header";
-import { AlignmentGrid } from "./AlignmentGrid";
-import { DataEntryPersonality } from "./DataEntryPersonality";
-import { DataValueMultiplier } from "./DataValueMultiplier";
-import { DataGrid } from "./DataGrid";
+import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from '@ant-design/icons';
+import { Card, Divider, Input } from 'antd';
+import { getLastItem, humanize } from '../../utils/helpers';
+import type { Contestant } from '../../utils/types';
+import { DataEntry } from './DataEntry';
+import { DataGroup } from './DataGroup';
+import { DataValueD6 } from './DataValueD6';
+import { DataValuePercentage } from './DataValuePercentage';
+import './ContestantCard.scss';
+import { Header } from './Header';
+import { AlignmentGrid } from './AlignmentGrid';
+import { DataEntryPersonality } from './DataEntryPersonality';
+import { DataValueMultiplier } from './DataValueMultiplier';
+import { DataGrid } from './DataGrid';
 
 type ContestantCardProps = {
   contestant: Contestant;
@@ -24,13 +24,13 @@ export function ContestantCard({ contestant }: ContestantCardProps) {
       className="contestant-card"
       actions={[
         <span>
-          <RiseOutlined /> {getLastItem(contestant.counts.rank) ?? "?"}
+          <RiseOutlined /> {getLastItem(contestant.counts.rank) ?? '?'}
         </span>,
         <span>
-          <FileDoneOutlined /> {contestant.grade ?? "?"}
+          <FileDoneOutlined /> {contestant.grade ?? '?'}
         </span>,
         <span>
-          <BarChartOutlined /> {getLastItem(contestant.counts.total) ?? "?"}
+          <BarChartOutlined /> {getLastItem(contestant.counts.total) ?? '?'}
         </span>,
       ]}
     >

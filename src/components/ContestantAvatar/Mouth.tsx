@@ -1,5 +1,5 @@
-import { SNOUT_COLOR } from "../../utils/appearance-constants";
-import { Appearance } from "../../utils/types";
+import { SNOUT_COLOR } from '../../utils/appearance-constants';
+import { Appearance } from '../../utils/types';
 
 type MouthProps = {
   appearance: Appearance;

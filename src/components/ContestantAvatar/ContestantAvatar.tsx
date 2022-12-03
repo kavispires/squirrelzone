@@ -1,16 +1,16 @@
-import { memo } from "react";
-import { parseDNA } from "../../utils/contestant-helpers";
-import { HSLColor } from "../../utils/types";
-import { Background } from "./Background";
-import { Bangs } from "./Bangs";
-import { Body } from "./Body";
-import { EyeLids } from "./EyeLids";
-import { Eyes } from "./Eyes";
-import { Hair } from "./Hair";
-import { Head } from "./Head";
-import { Mouth } from "./Mouth";
-import { Nose } from "./Nose";
-import { Tail } from "./Tail";
+import { memo } from 'react';
+import { parseDNA } from '../../utils/contestant-helpers';
+import { HSLColor } from '../../utils/types';
+import { Background } from './Background';
+import { Bangs } from './Bangs';
+import { Body } from './Body';
+import { EyeLids } from './EyeLids';
+import { Eyes } from './Eyes';
+import { Hair } from './Hair';
+import { Head } from './Head';
+import { Mouth } from './Mouth';
+import { Nose } from './Nose';
+import { Tail } from './Tail';
 
 type ContestantAvatarProps = {
   dna: string;

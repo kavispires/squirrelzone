@@ -1,6 +1,6 @@
-import { getTrackPosition } from "../../utils/contestant-builder";
-import type { Contestant } from "../../utils/types";
-import { ContestantAvatar } from "../ContestantAvatar";
+import { getTrackPosition } from '../../utils/contestant-builder';
+import type { Contestant } from '../../utils/types';
+import { ContestantAvatar } from '../ContestantAvatar';
 
 type HeaderProps = {
   contestant: Contestant;

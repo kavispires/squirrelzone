@@ -1,5 +1,5 @@
 export const SPECIES = {
-  squirrel: "squirrel",
+  squirrel: 'squirrel',
 };
 
 export const HEIGHT = {
@@ -19,39 +19,39 @@ export const BUILD = {
 };
 
 export const SIZE = {
-  small: "small",
-  medium: "medium",
-  large: "large",
+  small: 'small',
+  medium: 'medium',
+  large: 'large',
 };
 
 export const TRACK = {
-  VOCAL: "VOCAL",
-  RAP: "RAP",
-  DANCE: "DANCE",
+  VOCAL: 'VOCAL',
+  RAP: 'RAP',
+  DANCE: 'DANCE',
 };
 
 export const ALIGNMENT_X_LABELS = {
-  0: "good",
-  1: "neutral",
-  2: "evil",
+  0: 'good',
+  1: 'neutral',
+  2: 'evil',
 };
 
 export const ALIGNMENT_Y_LABELS = {
-  0: "lawful",
-  1: "neutral",
-  2: "chaotic",
+  0: 'lawful',
+  1: 'neutral',
+  2: 'chaotic',
 };
 
 export const ALIGNMENT_ARCHETYPE = {
-  "0.0": "CRUSADER",
-  "0.1": "BENEFACTOR",
-  "0.2": "REBEL",
-  "1.0": "JUDGE",
-  "1.1": "UNDECIDED",
-  "1.2": "FREE_SPIRIT",
-  "2.0": "DOMINATOR",
-  "2.1": "MALEFACTOR",
-  "2.2": "CRUSADER",
+  '0.0': 'CRUSADER',
+  '0.1': 'BENEFACTOR',
+  '0.2': 'REBEL',
+  '1.0': 'JUDGE',
+  '1.1': 'UNDECIDED',
+  '1.2': 'FREE_SPIRIT',
+  '2.0': 'DOMINATOR',
+  '2.1': 'MALEFACTOR',
+  '2.2': 'CRUSADER',
 };
 
 export const AGES = [18, 19, 20, 22, 21, 17, 23, 24, 25, 26, 27, 15];
@@ -136,15 +136,15 @@ const DEFAULT_16_VARIATION = {
 };
 
 export const VARIATION_KEYS = {
-  DEFAULT_4_VARIATION: "DEFAULT_4_VARIATION",
-  DEFAULT_8_VARIATION: "DEFAULT_8_VARIATION",
-  DEFAULT_12_VARIATION: "DEFAULT_12_VARIATION",
-  DEFAULT_16_VARIATION: "DEFAULT_16_VARIATION",
-  HEIGHT: "HEIGHT",
-  BUILD: "BUILD",
-  D6_STATS_DEFAULT: "D6_STATS_DEFAULT",
-  D6_STATS_TRACKED: "D6_STATS_TRACKED",
-  D6_STATS_UNTRACKED: "D6_STATS_UNTRACKED",
+  DEFAULT_4_VARIATION: 'DEFAULT_4_VARIATION',
+  DEFAULT_8_VARIATION: 'DEFAULT_8_VARIATION',
+  DEFAULT_12_VARIATION: 'DEFAULT_12_VARIATION',
+  DEFAULT_16_VARIATION: 'DEFAULT_16_VARIATION',
+  HEIGHT: 'HEIGHT',
+  BUILD: 'BUILD',
+  D6_STATS_DEFAULT: 'D6_STATS_DEFAULT',
+  D6_STATS_TRACKED: 'D6_STATS_TRACKED',
+  D6_STATS_UNTRACKED: 'D6_STATS_UNTRACKED',
 };
 
 export const VARIATIONS = {

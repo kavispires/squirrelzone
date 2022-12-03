@@ -1,12 +1,12 @@
-import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from "@ant-design/icons";
-import { Card, Drawer } from "antd";
-import { getLastItem } from "../../utils/helpers";
-import type { Contestant } from "../../utils/types";
+import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from '@ant-design/icons';
+import { Card, Drawer } from 'antd';
+import { getLastItem } from '../../utils/helpers';
+import type { Contestant } from '../../utils/types';
 
-import { Header } from "./Header";
+import { Header } from './Header';
 
-import { useState } from "react";
-import { ContestantCard } from "./ContestantCard";
+import { useState } from 'react';
+import { ContestantCard } from './ContestantCard';
 
 type ContestantSampleProps = {
   contestant: Contestant;
@@ -30,13 +30,13 @@ export function ContestantSample({ contestant }: ContestantSampleProps) {
           className="contestant-card"
           actions={[
             <span>
-              <RiseOutlined /> {getLastItem(contestant.counts.rank) ?? "?"}
+              <RiseOutlined /> {getLastItem(contestant.counts.rank) ?? '?'}
             </span>,
             <span>
-              <FileDoneOutlined /> {contestant.grade ?? "?"}
+              <FileDoneOutlined /> {contestant.grade ?? '?'}
             </span>,
             <span>
-              <BarChartOutlined /> {getLastItem(contestant.counts.total) ?? "?"}
+              <BarChartOutlined /> {getLastItem(contestant.counts.total) ?? '?'}
             </span>,
           ]}
         >

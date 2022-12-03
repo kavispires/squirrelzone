@@ -1,7 +1,7 @@
-import _ from "lodash";
-import { AGES, TRACK, VARIATIONS, VARIATION_KEYS } from "./constants";
-import { getRandomItem, getRandomNumber, shuffle } from "./helpers";
-import { SHUFFLED_INTERESTS, SHUFFLED_TRAITS } from "./traits";
+import _ from 'lodash';
+import { AGES, TRACK, VARIATIONS, VARIATION_KEYS } from './constants';
+import { getRandomItem, getRandomNumber, shuffle } from './helpers';
+import { SHUFFLED_INTERESTS, SHUFFLED_TRAITS } from './traits';
 import {
   Appearance,
   Contestant,
@@ -10,7 +10,7 @@ import {
   NumericVariant4,
   NumericVariant8,
   Trait,
-} from "./types";
+} from './types';
 
 /**
  * Generates a contestant id based of their name
@@ -19,8 +19,8 @@ import {
  */
 export function generateContestantId(name: string): string {
   return `_${name
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // Replace characters with accents
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Replace characters with accents
     .toLowerCase()}`;
 }
 
@@ -98,17 +98,17 @@ export function buildStageStats(contestant: Contestant) {
   // Vocals
   setContestant(
     contestant,
-    "stats.stage.vocal",
+    'stats.stage.vocal',
     contestant.track === TRACK.VOCAL ? trackedStat : currentStat
   );
   currentStat = contestant.track === TRACK.VOCAL ? currentStat : untrackedStat2;
 
-  setContestant(contestant, "stats.stage.rap", contestant.track === TRACK.RAP ? trackedStat : currentStat);
+  setContestant(contestant, 'stats.stage.rap', contestant.track === TRACK.RAP ? trackedStat : currentStat);
   currentStat = contestant.track === TRACK.RAP ? currentStat : untrackedStat2;
 
   setContestant(
     contestant,
-    "stats.stage.dance",
+    'stats.stage.dance',
     contestant.track === TRACK.DANCE ? trackedStat : currentStat
   );
 }
@@ -126,7 +126,7 @@ export function buildGeneralStats(contestant: Contestant, max: number) {
   let remainingPoints = max - highValue;
   const result = [highValue];
   const values = shuffle([1, 2, 2, 3, 3, 4, 4, 4, 4, 4]);
-  const keys = ["stagePresence", "visual", "charisma", "likeability", "rhetoric", "leadership"];
+  const keys = ['stagePresence', 'visual', 'charisma', 'likeability', 'rhetoric', 'leadership'];
   for (let i = 1; i < keys.length; i++) {
     let val = values[i];
     const positionsLeft = keys.length - i - 1;
@@ -145,17 +145,17 @@ export function buildGeneralStats(contestant: Contestant, max: number) {
 
 export function buildSkillsStats(contestant: Contestant) {
   // Learning (min: 0.5)
-  setContestant(contestant, "stats.skills.learning", Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  setContestant(contestant, 'stats.skills.learning', Math.max(0.5, Math.round(Math.random() * 100) / 100));
   // Memory (min: 0.5)
-  setContestant(contestant, "stats.skills.memory", Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  setContestant(contestant, 'stats.skills.memory', Math.max(0.5, Math.round(Math.random() * 100) / 100));
   // Style (no minimum)
-  setContestant(contestant, "stats.skills.style", Math.round(Math.random() * 100) / 100);
+  setContestant(contestant, 'stats.skills.style', Math.round(Math.random() * 100) / 100);
   // Memory (min: 0.75)
-  setContestant(contestant, "stats.skills.sanity", Math.max(0.75, Math.round(Math.random() * 100) / 100));
+  setContestant(contestant, 'stats.skills.sanity', Math.max(0.75, Math.round(Math.random() * 100) / 100));
   // Stamina (min: 0.5)
-  setContestant(contestant, "stats.skills.stamina", Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  setContestant(contestant, 'stats.skills.stamina', Math.max(0.5, Math.round(Math.random() * 100) / 100));
   // Luck (no minimum)
-  setContestant(contestant, "stats.skills.luck", Math.round(Math.random() * 100) / 100);
+  setContestant(contestant, 'stats.skills.luck', Math.round(Math.random() * 100) / 100);
 }
 
 const usedTraits: Record<string, boolean> = {};
@@ -190,7 +190,7 @@ export function distributeTraits(contestant: Contestant, kind: keyof typeof SHUF
     });
   });
 
-  setContestant(contestant, "keywords", [...contestant.keywords, ...contestantTraits.map((t) => t.keyword)]);
+  setContestant(contestant, 'keywords', [...contestant.keywords, ...contestantTraits.map((t) => t.keyword)]);
 }
 
 export function determineAlignment(contestant: Contestant) {
@@ -224,8 +224,8 @@ export function determineAlignment(contestant: Contestant) {
   y = updateAxis(x, determineValue(contestant.stats.personality.sincerity * -1));
   // Happiness
 
-  setContestant(contestant, "stats.alignment.x", x);
-  setContestant(contestant, "stats.alignment.y", y);
+  setContestant(contestant, 'stats.alignment.x', x);
+  setContestant(contestant, 'stats.alignment.y', y);
 }
 
 function cleanupD6(value: number) {
@@ -346,13 +346,13 @@ export function determinePersonalityType(contestant: Contestant) {
     counts.P += contestant.stats.personality.gentleness;
   }
 
-  const types: string[] = ["E", "N", "T", "J"];
-  types[0] = counts.E > counts.I ? "E" : "I";
-  types[1] = counts.N > counts.S ? "N" : "S";
-  types[2] = counts.T > counts.F ? "T" : "F";
-  types[3] = counts.J > counts.P ? "J" : "P";
+  const types: string[] = ['E', 'N', 'T', 'J'];
+  types[0] = counts.E > counts.I ? 'E' : 'I';
+  types[1] = counts.N > counts.S ? 'N' : 'S';
+  types[2] = counts.T > counts.F ? 'T' : 'F';
+  types[3] = counts.J > counts.P ? 'J' : 'P';
 
-  setContestant(contestant, `personalityType.type`, types.join(""));
+  setContestant(contestant, `personalityType.type`, types.join(''));
 }
 
 export function generateRelationships(contestants: Record<string, Contestant>) {
@@ -383,31 +383,31 @@ export function generateHSLAColors(saturation: number, lightness: number, alpha:
 
 export function generateDNA(contestant: Contestant) {
   const dna: number[] = [
-    _.get(contestant, "appearance.fur.color"),
-    _.get(contestant, "appearance.fur.type"),
-    _.get(contestant, "appearance.snout.color"),
-    _.get(contestant, "appearance.snout.mouth"),
-    _.get(contestant, "appearance.snout.nose"),
-    _.get(contestant, "appearance.eye.color"),
-    _.get(contestant, "appearance.eye.lids"),
-    _.get(contestant, "appearance.hair.bangs"),
-    _.get(contestant, "appearance.hair.color"),
-    _.get(contestant, "appearance.hair.type"),
-    _.get(contestant, "appearance.face.hair"),
-    _.get(contestant, "appearance.face.variations"),
-    _.get(contestant, "appearance.accessories.arm"),
-    _.get(contestant, "appearance.accessories.ear"),
-    _.get(contestant, "appearance.accessories.eyebrow"),
-    _.get(contestant, "appearance.accessories.eyes"),
-    _.get(contestant, "appearance.accessories.head"),
-    _.get(contestant, "appearance.accessories.nose"),
+    _.get(contestant, 'appearance.fur.color'),
+    _.get(contestant, 'appearance.fur.type'),
+    _.get(contestant, 'appearance.snout.color'),
+    _.get(contestant, 'appearance.snout.mouth'),
+    _.get(contestant, 'appearance.snout.nose'),
+    _.get(contestant, 'appearance.eye.color'),
+    _.get(contestant, 'appearance.eye.lids'),
+    _.get(contestant, 'appearance.hair.bangs'),
+    _.get(contestant, 'appearance.hair.color'),
+    _.get(contestant, 'appearance.hair.type'),
+    _.get(contestant, 'appearance.face.hair'),
+    _.get(contestant, 'appearance.face.variations'),
+    _.get(contestant, 'appearance.accessories.arm'),
+    _.get(contestant, 'appearance.accessories.ear'),
+    _.get(contestant, 'appearance.accessories.eyebrow'),
+    _.get(contestant, 'appearance.accessories.eyes'),
+    _.get(contestant, 'appearance.accessories.head'),
+    _.get(contestant, 'appearance.accessories.nose'),
   ];
 
-  return dna.join(":");
+  return dna.join(':');
 }
 
 export function parseDNA(dna: string): Appearance {
-  const splitDNA = dna.split(":").map((v) => Number(v));
+  const splitDNA = dna.split(':').map((v) => Number(v));
 
   return {
     fur: {

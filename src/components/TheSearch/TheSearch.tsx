@@ -1,11 +1,11 @@
-import { Layout } from "antd";
-import { useGlobalState } from "../../hooks/useGlobalState";
-import { Episode0 } from "./Episode0";
-import { Intro } from "./Intro";
-import "./TheSearch.scss";
+import { Layout } from 'antd';
+import { useGlobalState } from '../../hooks/useGlobalState';
+import { Episode0 } from './Episode0';
+import { Intro } from './Intro';
+import './TheSearch.scss';
 
 export function TheSearch() {
-  const [episode] = useGlobalState("episode");
+  const [episode] = useGlobalState('episode');
 
   let ActiveComponent = Intro;
 
