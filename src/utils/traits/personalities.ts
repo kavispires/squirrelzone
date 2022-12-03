@@ -566,6 +566,7 @@ export const PERSONALITIES: Trait[] = [
       update: {
         "stats.personality.sincerity": RANGE.LESS,
         "stats.multipliers.likeability": MULTIPLIER.NEGATIVE,
+        "stats.general.leadership": D6.SUBTRACT,
       },
     },
     effect: "TDB",

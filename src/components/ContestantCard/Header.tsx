@@ -11,9 +11,9 @@ export function Header({ contestant, avatarClassName }: HeaderProps) {
     <div className="contestant-card-header">
       <ContestantAvatar className={avatarClassName} color={contestant.color} dna={contestant.dna} />
       <h2 className="contestant-card-header__name">{contestant.name}</h2>
-      <h3 className="contestant-card-header__position">
+      <span className="contestant-card-header__position">
         {getTrackPosition(contestant.track)} [{contestant.personalityType.type}]
-      </h3>
+      </span>
     </div>
   );
 }

@@ -5,7 +5,7 @@ type DataValueD6Props = {
 };
 export function DataValueD6({ value }: DataValueD6Props) {
   return (
-    <Tooltip title={value}>
+    <Tooltip title={value} placement="right">
       {/* <Progress
         percent={getPercentage(value, 6)}
         size="small"
