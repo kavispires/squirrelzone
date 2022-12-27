@@ -1,0 +1,5 @@
+@use './sass.scss' as *;
+
+.container {
+  margin: get-unit(3 6);
+}

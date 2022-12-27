@@ -38,3 +38,15 @@
     @content;
   }
 }
+
+@mixin gradient-background {
+  background-image: linear-gradient(
+    to right top,
+    rgba(15, 16, 20, 0.75),
+    rgba(19, 23, 37, 0.75),
+    rgba(22, 29, 54, 0.75),
+    rgba(26, 35, 72, 0.75),
+    rgba(31, 41, 90, 0.75),
+    rgba(32, 59, 115, 0.75)
+  );
+}
