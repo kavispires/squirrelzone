@@ -1,3 +1,5 @@
+import { Chrome } from 'components/Chrome';
+
 import { ContestantSample } from 'components/ContestantCard/ContestantSample';
 import { orderBy } from 'lodash';
 import { Contestant } from 'types';
@@ -66,26 +68,29 @@ const STATISTICS = calculateStatistics(CONTESTANTS);
 
 export function TheSearch() {
   return (
-    <div className="App">
-      <div className="summary">
-        <span>VOCAL: {STATISTICS.tracks.VOCAL}</span>
-        <span>DANCE: {STATISTICS.tracks.DANCE}</span>
-        <span>RAP: {STATISTICS.tracks.RAP}</span>
-        <span>Average Vocal: {STATISTICS.averages.vocal}</span>
-        <span>Average Rap: {STATISTICS.averages.rap}</span>
-        <span>Average Dance: {STATISTICS.averages.dance}</span>
-        <span>Average Age: {STATISTICS.averages.age}</span>
-        <span>Charisma: {STATISTICS.averages.charisma}</span>
-        <span>Stage Presence: {STATISTICS.averages.stagePresence}</span>
-        <span>Visual: {STATISTICS.averages.visual}</span>
-        <span>Leadership: {STATISTICS.averages.leadership}</span>
-        <span>Rhetoric: {STATISTICS.averages.rhetoric}</span>
+    <Chrome>
+      <div className="search">
+        <h2>/search</h2>
+        <div className="summary">
+          <span>VOCAL: {STATISTICS.tracks.VOCAL}</span>
+          <span>DANCE: {STATISTICS.tracks.DANCE}</span>
+          <span>RAP: {STATISTICS.tracks.RAP}</span>
+          <span>Average Vocal: {STATISTICS.averages.vocal}</span>
+          <span>Average Rap: {STATISTICS.averages.rap}</span>
+          <span>Average Dance: {STATISTICS.averages.dance}</span>
+          <span>Average Age: {STATISTICS.averages.age}</span>
+          <span>Charisma: {STATISTICS.averages.charisma}</span>
+          <span>Stage Presence: {STATISTICS.averages.stagePresence}</span>
+          <span>Visual: {STATISTICS.averages.visual}</span>
+          <span>Leadership: {STATISTICS.averages.leadership}</span>
+          <span>Rhetoric: {STATISTICS.averages.rhetoric}</span>
+        </div>
+        <div className="contestants">
+          {CONTESTANTS.map((entry) => (
+            <ContestantSample contestant={entry} key={entry.id} />
+          ))}
+        </div>
       </div>
-      <div className="contestants">
-        {CONTESTANTS.map((entry) => (
-          <ContestantSample contestant={entry} key={entry.id} />
-        ))}
-      </div>
-    </div>
+    </Chrome>
   );
 }
