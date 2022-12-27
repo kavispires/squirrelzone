@@ -1,0 +1,31 @@
+@use 'styles/sass' as *;
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__logo {
+    width: 50vw;
+    max-width: 360px;
+    margin: get-unit(10);
+
+    @include sm {
+      width: 70px;
+    }
+  }
+
+  &__logo-text {
+    width: 50vw;
+    max-width: 360px;
+
+    @include sm {
+      width: 70px;
+    }
+  }
+
+  &__tagline {
+    color: aliceblue;
+  }
+}

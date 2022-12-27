@@ -1,0 +1,40 @@
+@use './variables' as *;
+
+@mixin box-shadow {
+  box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
+}
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  list-style-type: none;
+}
+
+// Extra Small devices
+@mixin xs {
+  @media (max-width: #{var(--screen-xs-max)}) {
+    @content;
+  }
+}
+
+// Small devices
+@mixin sm {
+  @media (max-width: #{var(--screen-sm-max)}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin md {
+  @media (max-width: #{var(--screen-md-max)}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin lg {
+  @media (max-width: #{var(--screen-lg-max)}) {
+    @content;
+  }
+}

@@ -8,6 +8,10 @@ function App() {
     <ConfigProvider
       theme={{
         algorithm: theme.darkAlgorithm,
+        token: {
+          colorPrimary: '#3636bc',
+          colorLink: '#96abf6',
+        },
       }}
     >
       <HashRouter>

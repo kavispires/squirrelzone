@@ -1,0 +1,31 @@
+@use './variables' as *;
+
+/*
+ * Converts a value (or list of values) into a standard scale with base 4px
+ * Example:
+ * get-unit(1) -> 3px
+ * get-unit(2 1) -> 3px 6px
+ * get-unit(4 2 4 -1) -> 12px 6px 12px -3px
+ */
+@function get-unit($value) {
+  //  If value is a list
+  @if type-of($value) == list {
+    $result: ();
+    @each $i in $value {
+      $result: append($result, get-unit($i));
+    }
+    @return $result;
+  }
+
+  @if $value == auto {
+    @return auto;
+  }
+
+  @if $value == 0 {
+    @return 0;
+  }
+
+  $base: 3px;
+
+  @return $value * $base;
+}

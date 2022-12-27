@@ -1,20 +1,15 @@
-import { Layout } from 'antd';
-import { Footer } from 'components/Chrome/Footer';
-import { Header } from 'components/Chrome/Header';
+import { Chrome } from 'components/Chrome';
 import { LogoIcon, LogoText } from 'components/Logos';
+import './Home.scss';
 
 export function Home() {
   return (
-    <Layout className="container">
-      <Header isAuthenticated={true} />
-      <Layout.Content className="main home">
-        <div className="home__logo-container">
-          <LogoIcon />
-          <LogoText />
-          <h3 className="home__tagline">On the Microphone</h3>
-        </div>
-      </Layout.Content>
-      <Footer />
-    </Layout>
+    <Chrome>
+      <div className="home">
+        <LogoIcon className="home__logo" />
+        <LogoText className="home__logo-text" />
+        <h3 className="home__tagline">On the Microphone</h3>
+      </div>
+    </Chrome>
   );
 }
