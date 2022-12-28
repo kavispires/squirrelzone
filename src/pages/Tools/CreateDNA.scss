@@ -1,0 +1,36 @@
+@use 'styles/sass' as *;
+
+.create-dna {
+  &__container {
+    color: white;
+  }
+
+  &__section {
+    padding: get-unit(3);
+    @include gradient-background;
+  }
+}
+
+.samples-container {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: get-unit(3);
+}
+
+.samples {
+  display: grid;
+  gap: get-unit(1);
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.sample {
+  &--active {
+    border-color: gold;
+    background: gold;
+  }
+}
+
+.main-sample {
+  position: sticky;
+  top: get-unit(12);
+}

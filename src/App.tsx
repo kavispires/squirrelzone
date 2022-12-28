@@ -7,6 +7,7 @@ import { Tools } from 'pages/Tools';
 import { Artists } from 'pages/Artists';
 import { Groups } from 'pages/Groups';
 import { History } from 'pages/History';
+import { CreateDNA } from 'pages/Tools/CreateDNA';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/artists" element={<Artists />} />
           <Route path="/search" element={<TheSearch />} />
           <Route path="/tools" element={<Tools />} />
+          <Route path="/tools/dna" element={<CreateDNA />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </HashRouter>
