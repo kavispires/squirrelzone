@@ -11,6 +11,8 @@
     display: grid;
     width: 100%;
     transition: all 500ms;
+    position: sticky;
+    top: get-unit(3);
 
     &--collapsed {
       justify-items: center;
