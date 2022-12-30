@@ -1,5 +1,5 @@
-import { HAIR_COLOR } from '../../utils/appearance-constants';
 import { Appearance, HSLColor } from 'types';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 
 type HairProps = {
   appearance: Appearance;
@@ -11,7 +11,7 @@ const hairs = Array(27)
   .map((e, i) => e + i);
 
 export function Hair({ appearance, color }: HairProps) {
-  const hairColor = HAIR_COLOR[appearance.hair.color].hex;
+  const hairColor = DNA_DISTRIBUTION['hair.color'].options[appearance.hair.color].hex;
   const kind = appearance.hair.type % hairs.length;
   const colorStr = `hsl(${color.hue},${color.saturation}%,${color.lightness}%)`;
 

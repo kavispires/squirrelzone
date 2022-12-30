@@ -20,5 +20,3 @@ export const SHUFFLED_TRAITS = {
   INTERESTS: shuffle(INTERESTS),
   PERSONALITIES: shuffle(PERSONALITIES),
 };
-
-export const SHUFFLED_INTERESTS = shuffle(INTERESTS);

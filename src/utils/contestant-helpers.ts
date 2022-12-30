@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { AGES, TRACK, VARIATIONS, VARIATION_KEYS } from './constants';
-import { getRandomItem, getRandomNumber, shuffle } from './helpers';
-import { SHUFFLED_INTERESTS, SHUFFLED_TRAITS } from './traits';
+import { getRandomItem, getRandomNumber, makeNewArray, shuffle } from './helpers';
+import { SHUFFLED_TRAITS } from './traits';
 import {
   Appearance,
   Contestant,
@@ -11,6 +11,7 @@ import {
   NumericVariant8,
   Trait,
 } from 'types';
+import { DNA_DISTRIBUTION } from './squirrel-appearance';
 
 /**
  * Generates a contestant id based of their name
@@ -31,7 +32,6 @@ function getVariantArray(variantObj: Record<string, number>, name: string) {
     variantCache[name] = Object.keys(variantObj)
       .map((key) => Array(variantObj[key]).fill(key))
       .flat();
-    console.log({ [name]: variantCache[name] });
   }
   return variantCache[name];
 }
@@ -41,7 +41,7 @@ function getVariantArray(variantObj: Record<string, number>, name: string) {
  * @returns the age
  */
 export function generateContestantAge(): number {
-  const ageIndex = getVariant(VARIATION_KEYS.DEFAULT_12_VARIATION) as number;
+  const ageIndex = getVariant(VARIATION_KEYS.VARIATION_3x4_DEFAULT) as number;
   const age = AGES[ageIndex];
   const increment = getRandomNumber(0, 9);
   return Number(age) + increment / 10;
@@ -83,12 +83,15 @@ export function getVariant(key: string, keepAsString = false): number | string {
 
 export function buildStageStats(contestant: Contestant) {
   const trackedStat = getVariant(VARIATION_KEYS.D6_STATS_TRACKED);
+
   let untrackedStat1 = getVariant(VARIATION_KEYS.D6_STATS_UNTRACKED);
+
   // A untracked stat cannot be lower than the track stat
   if (trackedStat < untrackedStat1) {
     untrackedStat1 = trackedStat;
   }
   let untrackedStat2 = getVariant(VARIATION_KEYS.D6_STATS_UNTRACKED);
+
   // A untracked stat cannot be lower than the track stat
   if (trackedStat < untrackedStat2) {
     untrackedStat2 = trackedStat;
@@ -125,7 +128,8 @@ export function buildGeneralStats(contestant: Contestant, max: number) {
   const highValue = getRandomItem([4, 5, 5, 6]);
   let remainingPoints = max - highValue;
   const result = [highValue];
-  const values = shuffle([1, 2, 2, 3, 3, 4, 4, 4, 4, 4]);
+  // const values = shuffle([1, 2, 2, 3, 3, 4, 4, 4, 4, 4]);
+  const values = [3, 3, 3, 3, 3, 3];
   const keys = ['stagePresence', 'visual', 'charisma', 'likeability', 'rhetoric', 'leadership'];
   for (let i = 1; i < keys.length; i++) {
     let val = values[i];
@@ -382,26 +386,12 @@ export function generateHSLAColors(saturation: number, lightness: number, alpha:
 }
 
 export function generateDNA(contestant: Contestant) {
-  const dna: number[] = [
-    _.get(contestant, 'appearance.fur.color'),
-    _.get(contestant, 'appearance.fur.type'),
-    _.get(contestant, 'appearance.snout.color'),
-    _.get(contestant, 'appearance.snout.mouth'),
-    _.get(contestant, 'appearance.snout.nose'),
-    _.get(contestant, 'appearance.eye.color'),
-    _.get(contestant, 'appearance.eye.lids'),
-    _.get(contestant, 'appearance.hair.bangs'),
-    _.get(contestant, 'appearance.hair.color'),
-    _.get(contestant, 'appearance.hair.type'),
-    _.get(contestant, 'appearance.face.hair'),
-    _.get(contestant, 'appearance.face.variations'),
-    _.get(contestant, 'appearance.accessories.arm'),
-    _.get(contestant, 'appearance.accessories.ear'),
-    _.get(contestant, 'appearance.accessories.eyebrow'),
-    _.get(contestant, 'appearance.accessories.eyes'),
-    _.get(contestant, 'appearance.accessories.head'),
-    _.get(contestant, 'appearance.accessories.nose'),
-  ];
+  const dnaDistribution = Object.values(DNA_DISTRIBUTION);
+  const dna: number[] = makeNewArray(dnaDistribution.length);
+
+  dnaDistribution.forEach(({ index, part, type }) => {
+    dna[index] = _.get(contestant, `appearance.${part}.${type}`) ?? 0;
+  });
 
   return dna.join(':');
 }
@@ -411,34 +401,35 @@ export function parseDNA(dna: string): Appearance {
 
   return {
     fur: {
-      color: splitDNA[0] as NumericVariant16,
-      type: splitDNA[1] as NumericVariant4,
+      color: splitDNA[DNA_DISTRIBUTION['fur.color'].index] as NumericVariant16,
+      type: splitDNA[DNA_DISTRIBUTION['fur.type'].index] as NumericVariant4,
     },
     snout: {
-      color: splitDNA[2] as NumericVariant4,
-      mouth: splitDNA[3] as NumericVariant16,
-      nose: splitDNA[4] as NumericVariant8,
+      color: splitDNA[DNA_DISTRIBUTION['snout.color'].index] as NumericVariant4,
+      mouth: splitDNA[DNA_DISTRIBUTION['snout.mouth'].index] as NumericVariant16,
+      nose: splitDNA[DNA_DISTRIBUTION['snout.nose'].index] as NumericVariant8,
     },
     eye: {
-      color: splitDNA[5] as NumericVariant16,
-      lids: splitDNA[6] as NumericVariant16,
+      color: splitDNA[DNA_DISTRIBUTION['eye.color'].index] as NumericVariant16,
+      lids: splitDNA[DNA_DISTRIBUTION['eye.lids'].index] as NumericVariant16,
     },
     face: {
-      hair: splitDNA[7] as NumericVariant16,
-      variations: splitDNA[8] as NumericVariant16,
+      variations: splitDNA[DNA_DISTRIBUTION['face.variations'].index] as NumericVariant16,
     },
     hair: {
-      bangs: splitDNA[9] as NumericVariant32,
-      color: splitDNA[10] as NumericVariant16,
-      type: splitDNA[11] as NumericVariant32,
+      color: splitDNA[DNA_DISTRIBUTION['hair.color'].index] as NumericVariant16,
+      type: splitDNA[DNA_DISTRIBUTION['hair.type'].index] as NumericVariant32,
+      bangs: splitDNA[DNA_DISTRIBUTION['hair.bangs'].index] as NumericVariant32,
+      facial: splitDNA[DNA_DISTRIBUTION['hair.facial'].index] as NumericVariant16,
     },
     accessories: {
-      arm: splitDNA[12] as NumericVariant16,
-      ear: splitDNA[13] as NumericVariant4,
-      eyebrow: splitDNA[14] as NumericVariant4,
-      eyes: splitDNA[15] as NumericVariant4,
-      head: splitDNA[16] as NumericVariant4,
-      nose: splitDNA[17] as NumericVariant4,
+      arm: splitDNA[DNA_DISTRIBUTION['accessories.arm'].index] as NumericVariant8,
+      ear: splitDNA[DNA_DISTRIBUTION['accessories.ear'].index] as NumericVariant4,
+      eyebrow: splitDNA[DNA_DISTRIBUTION['accessories.eyebrow'].index] as NumericVariant4,
+      eyes: splitDNA[DNA_DISTRIBUTION['accessories.eyes'].index] as NumericVariant8,
+      head: splitDNA[DNA_DISTRIBUTION['accessories.head'].index] as NumericVariant8,
+      nose: splitDNA[DNA_DISTRIBUTION['accessories.nose'].index] as NumericVariant4,
+      neck: splitDNA[DNA_DISTRIBUTION['accessories.neck'].index] as NumericVariant4,
     },
   };
 }

@@ -1,4 +1,4 @@
-import { FUR_COLOR } from '../../utils/appearance-constants';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 import { Appearance } from 'types';
 
 type EyeLidsProps = {
@@ -6,7 +6,7 @@ type EyeLidsProps = {
 };
 
 export function EyeLids({ appearance }: EyeLidsProps) {
-  const furColor = FUR_COLOR[appearance.fur.color].hex;
+  const furColor = DNA_DISTRIBUTION['fur.color'].options[appearance.fur.color].hex;
   const kind = appearance.eye.lids;
 
   switch (kind) {

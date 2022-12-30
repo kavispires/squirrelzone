@@ -26,6 +26,7 @@ import {
   getVariant32Values,
 } from './contestant-helpers';
 import { TRACK, VARIATION_KEYS } from './constants';
+import { DNA_DISTRIBUTION } from './squirrel-appearance';
 
 const usedNames: string[] = [];
 
@@ -58,34 +59,35 @@ export function createContestant(index: number, options?: Options) {
     dna: '',
     appearance: {
       fur: {
-        color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
-        type: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
+        color: getVariant(DNA_DISTRIBUTION['fur.color'].distributionType) as NumericVariant16,
+        type: getVariant(DNA_DISTRIBUTION['fur.type'].distributionType) as NumericVariant4,
       },
       snout: {
-        color: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
-        nose: getVariant(VARIATION_KEYS.DEFAULT_8_VARIATION) as NumericVariant8,
-        mouth: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
+        color: getVariant(DNA_DISTRIBUTION['snout.color'].distributionType) as NumericVariant4,
+        nose: getVariant(DNA_DISTRIBUTION['snout.nose'].distributionType) as NumericVariant8,
+        mouth: getVariant(DNA_DISTRIBUTION['snout.mouth'].distributionType) as NumericVariant16,
       },
       eye: {
-        color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
-        lids: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
+        color: getVariant(DNA_DISTRIBUTION['eye.color'].distributionType) as NumericVariant16,
+        lids: getVariant(DNA_DISTRIBUTION['eye.lids'].distributionType) as NumericVariant16,
       },
       face: {
-        variations: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
-        hair: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
+        variations: getVariant(DNA_DISTRIBUTION['face.variations'].distributionType) as NumericVariant16,
       },
       hair: {
         type: HAIR_TYPES[index],
         bangs: HAIR_TYPES[index],
-        color: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
+        color: getVariant(DNA_DISTRIBUTION['hair.color'].distributionType) as NumericVariant16,
+        facial: getVariant(DNA_DISTRIBUTION['hair.facial'].distributionType) as NumericVariant16,
       },
       accessories: {
-        ear: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
-        nose: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
-        eyebrow: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
-        eyes: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
-        head: getVariant(VARIATION_KEYS.DEFAULT_4_VARIATION) as NumericVariant4,
-        arm: getVariant(VARIATION_KEYS.DEFAULT_16_VARIATION) as NumericVariant16,
+        arm: getVariant(DNA_DISTRIBUTION['accessories.arm'].distributionType) as NumericVariant8,
+        ear: getVariant(DNA_DISTRIBUTION['accessories.ear'].distributionType) as NumericVariant4,
+        nose: getVariant(DNA_DISTRIBUTION['accessories.nose'].distributionType) as NumericVariant4,
+        eyebrow: getVariant(DNA_DISTRIBUTION['accessories.eyebrow'].distributionType) as NumericVariant4,
+        eyes: getVariant(DNA_DISTRIBUTION['accessories.eyes'].distributionType) as NumericVariant8,
+        head: getVariant(DNA_DISTRIBUTION['accessories.head'].distributionType) as NumericVariant8,
+        neck: getVariant(DNA_DISTRIBUTION['accessories.neck'].distributionType) as NumericVariant4,
       },
     },
     track: getRandomItem(Object.values(TRACK)) as Track,

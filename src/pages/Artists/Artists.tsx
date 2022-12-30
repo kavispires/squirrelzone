@@ -41,7 +41,7 @@ const squirrelZoneI = [
     color: {
       hue: 0,
       saturation: 0,
-      lightness: 0,
+      lightness: 50,
     },
   },
   {
@@ -50,7 +50,7 @@ const squirrelZoneI = [
     color: {
       hue: 0,
       saturation: 0,
-      lightness: 0,
+      lightness: 50,
     },
   },
   {
@@ -59,7 +59,7 @@ const squirrelZoneI = [
     color: {
       hue: 0,
       saturation: 0,
-      lightness: 0,
+      lightness: 50,
     },
   },
   {
@@ -68,7 +68,7 @@ const squirrelZoneI = [
     color: {
       hue: 0,
       saturation: 0,
-      lightness: 0,
+      lightness: 50,
     },
   },
   {
@@ -77,7 +77,7 @@ const squirrelZoneI = [
     color: {
       hue: 0,
       saturation: 0,
-      lightness: 0,
+      lightness: 50,
     },
   },
 ];

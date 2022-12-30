@@ -7,7 +7,7 @@ import { createContestants } from 'utils/contestant-builder';
 import { performEpisode0 } from 'utils/episodes/episode-0';
 
 let CONTESTANTS = orderBy(
-  Object.values(createContestants(30)),
+  Object.values(createContestants(41)),
   ['track', 'age', 'name'],
   ['desc', 'asc', 'asc']
 );

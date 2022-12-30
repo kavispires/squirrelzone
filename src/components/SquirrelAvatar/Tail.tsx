@@ -1,4 +1,4 @@
-import { FUR_COLOR } from '../../utils/appearance-constants';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 import { Appearance } from 'types';
 
 type TailProps = {
@@ -6,7 +6,7 @@ type TailProps = {
 };
 
 export function Tail({ appearance }: TailProps) {
-  const furColor = FUR_COLOR[appearance.fur.color].hex;
+  const furColor = DNA_DISTRIBUTION['fur.color'].options[appearance.fur.color].hex;
   const kind = appearance.fur.type;
 
   switch (kind) {

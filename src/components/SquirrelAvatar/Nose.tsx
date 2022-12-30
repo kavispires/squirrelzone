@@ -1,12 +1,12 @@
-import { NOSE_COLOR } from '../../utils/appearance-constants';
 import { Appearance } from 'types';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 
 type NoseProps = {
   appearance: Appearance;
 };
 
 export function Nose({ appearance }: NoseProps) {
-  const noseColor = NOSE_COLOR[appearance.snout.nose].hex;
+  const noseColor = DNA_DISTRIBUTION['snout.nose'].options[appearance.snout.nose].hex;
 
   return (
     <>

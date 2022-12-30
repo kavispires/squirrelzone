@@ -1,12 +1,12 @@
-import { EYE_COLOR } from '../../utils/appearance-constants';
 import { Appearance } from 'types';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 
 type EyesProps = {
   appearance: Appearance;
 };
 
 export function Eyes({ appearance }: EyesProps) {
-  const eyeColor = EYE_COLOR[appearance.eye.color].hex;
+  const eyeColor = DNA_DISTRIBUTION['eye.color'].options[appearance.eye.color].hex;
 
   return (
     <>

@@ -103,3 +103,35 @@ export const getPercentage = (value: number, total: number): number => {
 export const wait = async (duration = 1000) => {
   return await new Promise((resolve) => setTimeout(resolve, duration));
 };
+
+/**
+ * Creates array with given fill
+ * @param length
+ * @param fill
+ * @returns
+ */
+export const makeNewArray = <T>(length: number, fill?: T) => new Array(length).fill(fill ?? 0);
+
+const sumArrayElements = (arr: number[]) => arr.reduce((acc, e) => acc + e);
+
+/**
+ * Generates Rate Variations
+ * @param grid
+ * @returns
+ */
+export const generateRateVariations = (grid: [number[], number[]]) => {
+  const [col, row] = grid;
+  if (sumArrayElements(col) !== 10 || sumArrayElements(row) !== 10) {
+    throw Error('rate grid sides must add to 10');
+  }
+
+  const variations: Record<number, number> = {};
+
+  col.forEach((colVal, colIndex) => {
+    row.forEach((rowVal, rowIndex) => {
+      variations[colIndex + colIndex * rowIndex] = colVal * rowVal;
+    });
+  });
+
+  return variations;
+};

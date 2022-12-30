@@ -1,5 +1,5 @@
-import { FUR_COLOR } from '../../utils/appearance-constants';
 import { Appearance, HSLColor } from 'types';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 
 type BodyProps = {
   appearance: Appearance;
@@ -7,7 +7,7 @@ type BodyProps = {
 };
 
 export function Body({ appearance, color }: BodyProps) {
-  const furColor = FUR_COLOR[appearance.fur.color].hex;
+  const furColor = DNA_DISTRIBUTION['fur.color'].options[appearance.fur.color].hex;
 
   return (
     <>

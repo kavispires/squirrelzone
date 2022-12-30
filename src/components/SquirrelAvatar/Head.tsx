@@ -1,13 +1,13 @@
-import { FUR_COLOR, SNOUT_COLOR } from '../../utils/appearance-constants';
 import { Appearance } from 'types';
+import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 
 type HeadProps = {
   appearance: Appearance;
 };
 
 export function Head({ appearance }: HeadProps) {
-  const furColor = FUR_COLOR[appearance.fur.color].hex;
-  const snoutColor = SNOUT_COLOR[appearance.snout.color].hex;
+  const furColor = DNA_DISTRIBUTION['fur.color'].options[appearance.fur.color].hex;
+  const snoutColor = DNA_DISTRIBUTION['snout.color'].options[appearance.snout.color].hex;
 
   return (
     <>

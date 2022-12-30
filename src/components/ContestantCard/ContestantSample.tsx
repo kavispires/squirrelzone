@@ -47,7 +47,6 @@ export function ContestantSample({ contestant }: ContestantSampleProps) {
       <Drawer title="Contestant" placement="right" onClose={onClose} open={open} width={480}>
         <>
           <ContestantCard contestant={contestant} />
-          {open && console.log(contestant)}
         </>
       </Drawer>
     </>

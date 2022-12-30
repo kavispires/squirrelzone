@@ -72,19 +72,11 @@ export interface Appearance {
   };
   face: {
     /**
-     * Facial hair like mustache, goatee, beard
-     */
-    hair: NumericVariant16;
-    /**
      * Variations like marks, freckles, tattoos, acne, moles
      */
     variations: NumericVariant16;
   };
   hair: {
-    /**
-     * Forehead hair coverage
-     */
-    bangs: NumericVariant32;
     /**
      * The color of the hair
      */
@@ -94,6 +86,14 @@ export interface Appearance {
      */
     type: NumericVariant32;
     /**
+     * Forehead hair coverage
+     */
+    bangs: NumericVariant32;
+    /**
+     * Facial hair like mustache, goatee, beard
+     */
+    facial: NumericVariant16;
+    /**
      * When type is #12, a special color is generated
      */
     specialColor?: string;
@@ -102,11 +102,33 @@ export interface Appearance {
    * Any accessories like earrings, piercings, sunglasses, hats, tattoos
    */
   accessories: {
-    arm: NumericVariant16;
-    ear: NumericVariant4;
+    /**
+     * Tattoos, bracelets,
+     */
+    arm: NumericVariant8;
+    /**
+     * Earrings
+     */
+    ear: NumericVariant12;
+    /**
+     * Piercings
+     */
     eyebrow: NumericVariant4;
-    eyes: NumericVariant4;
-    head: NumericVariant4;
+    /**
+     * Shades and glasses
+     */
+    eyes: NumericVariant8;
+    /**
+     * Hats and head pieces
+     */
+    head: NumericVariant8;
+    /**
+     * necklaces, tattoos,
+     */
+    neck: NumericVariant4;
+    /**
+     * Nose rings
+     */
     nose: NumericVariant4;
   };
 }
