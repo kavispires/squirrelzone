@@ -1,4 +1,4 @@
-import { ALIGNMENT_X_LABELS, ALIGNMENT_Y_LABELS, BUILD, HEIGHT, SIZE, SPECIES, TRACK } from './constants';
+import { BUILD, HEIGHT, SIZE, SPECIES, TRACK } from './constants';
 
 export type Species = keyof typeof SPECIES;
 export type Height = keyof typeof HEIGHT;
@@ -23,8 +23,8 @@ export type ContestantId = string;
 export type StaffId = string;
 
 export interface Alignment {
-  x: keyof typeof ALIGNMENT_X_LABELS;
-  y: keyof typeof ALIGNMENT_Y_LABELS;
+  x: number;
+  y: number;
 }
 
 export type TraitUpdateAction = Record<string, number>;
@@ -367,7 +367,7 @@ export interface Contestant {
   /**
    * How much staff members (host, judges, coaches, produces) like the contestant
    */
-  staffLikeability: Record<StaffId, number>;
+  staffLikeability: 0;
   /**
    * Keywords that influence how thew game works
    */
@@ -381,6 +381,8 @@ export interface Contestant {
    */
   sortingValue: number;
 }
+
+export type CountKeys = keyof Contestant['counts'];
 
 export interface ColorData {
   rate: number;

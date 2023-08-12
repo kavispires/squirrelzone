@@ -1,4 +1,3 @@
-import { DNA_DISTRIBUTION } from 'utils/squirrel-appearance';
 import { Appearance } from 'types';
 
 type EarAccessoriesProps = {

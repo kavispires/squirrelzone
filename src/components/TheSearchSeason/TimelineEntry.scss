@@ -1,0 +1,40 @@
+@use 'styles/sass' as *;
+
+.timeline-entry {
+  padding: get-unit(2 3);
+  border-radius: var(--border-radius);
+  display: grid;
+  grid-template-columns: 32px 1fr;
+
+  background: rgba(128, 128, 128, 0.2);
+  border-left: get-unit(1) solid gray;
+  @include box-shadow;
+
+  &--info {
+    grid-template-columns: 0 1fr;
+  }
+
+  &--host {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--color-tertiary);
+    color: rgba(0, 0, 0, 0.85);
+    font-style: italic;
+  }
+
+  &--event {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-light);
+  }
+
+  &--video {
+    border-left-width: get-unit(1);
+    border-right-width: get-unit(1);
+    border-color: var(--color-secondary);
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}

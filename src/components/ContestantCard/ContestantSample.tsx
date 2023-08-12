@@ -1,5 +1,5 @@
 import { BarChartOutlined, FileDoneOutlined, RiseOutlined } from '@ant-design/icons';
-import { Card, Drawer } from 'antd';
+import { Card, Drawer, Tooltip } from 'antd';
 import { getLastItem } from '../../utils/helpers';
 import type { Contestant } from 'types';
 
@@ -29,15 +29,15 @@ export function ContestantSample({ contestant }: ContestantSampleProps) {
           bordered
           className="contestant-card"
           actions={[
-            <span>
+            <Tooltip title="Rank">
               <RiseOutlined /> {getLastItem(contestant.counts.rank) ?? '?'}
-            </span>,
-            <span>
+            </Tooltip>,
+            <Tooltip title="Grade">
               <FileDoneOutlined /> {contestant.grade ?? '?'}
-            </span>,
-            <span>
+            </Tooltip>,
+            <Tooltip title="Total">
               <BarChartOutlined /> {getLastItem(contestant.counts.total) ?? '?'}
-            </span>,
+            </Tooltip>,
           ]}
         >
           <Header contestant={contestant} />

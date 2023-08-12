@@ -112,7 +112,13 @@ export const wait = async (duration = 1000) => {
  */
 export const makeNewArray = <T>(length: number, fill?: T) => new Array(length).fill(fill ?? 0);
 
-const sumArrayElements = (arr: number[]) => arr.reduce((acc, e) => acc + e);
+/**
+ * Sum array elements
+ *
+ * @param arr
+ * @returns
+ */
+export const sumArray = (arr: number[]) => arr.reduce((acc, e) => acc + e);
 
 /**
  * Generates Rate Variations
@@ -121,7 +127,7 @@ const sumArrayElements = (arr: number[]) => arr.reduce((acc, e) => acc + e);
  */
 export const generateRateVariations = (grid: [number[], number[]]) => {
   const [col, row] = grid;
-  if (sumArrayElements(col) !== 10 || sumArrayElements(row) !== 10) {
+  if (sumArray(col) !== 10 || sumArray(row) !== 10) {
     throw Error('rate grid sides must add to 10');
   }
 
@@ -134,4 +140,21 @@ export const generateRateVariations = (grid: [number[], number[]]) => {
   });
 
   return variations;
+};
+
+/**
+ * Roll D6
+ * @returns
+ */
+export const rollDice = (): number => Math.floor(Math.random() * (6 - 1 + 1) + 1);
+
+/**
+ * Roll given number of D6s, keep highest value
+ */
+export const rollDices = (quantity = 1) => {
+  return Math.max(
+    ...Array(quantity)
+      .fill('')
+      .map(() => rollDice())
+  );
 };

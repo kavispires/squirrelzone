@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { setContestant } from '../contestant-helpers';
+import { contestantMethods } from '../contestant-helpers';
 import { getLastItem } from '../helpers';
 import { Contestant, ContestantId } from 'types';
 
@@ -45,17 +45,17 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
   const episodeIndex = 0;
   contestants.forEach((contestant) => {
     if (contestant.status === 'ACTIVE') {
-      setContestant(
+      contestantMethods.set(
         contestant,
         `counts.total.[${episodeIndex}]`,
         Math.round((100 * counts[contestant.id].total) / (bestOverall?.total ?? 1))
       );
     } else {
       // Eliminated contestants get 0
-      setContestant(contestant, `counts.total.[${episodeIndex}]`, 0);
+      contestantMethods.set(contestant, `counts.total.[${episodeIndex}]`, 0);
     }
 
-    setContestant(contestant, 'sortingValue', getLastItem(contestant.counts.total));
+    contestantMethods.set(contestant, 'sortingValue', getLastItem(contestant.counts.total));
 
     rankings.push(contestant.sortingValue);
   });
@@ -71,9 +71,9 @@ export function performEpisode0(show: any, contestants: Contestant[]) {
         rank += 1;
       }
       usedRanks[rank] = true;
-      setContestant(contestant, `counts.rank.[${episodeIndex}]`, rank);
+      contestantMethods.set(contestant, `counts.rank.[${episodeIndex}]`, rank);
     } else {
-      setContestant(contestant, `counts.rank.[${episodeIndex}]`, getLastItem(contestant.counts.rank));
+      contestantMethods.set(contestant, `counts.rank.[${episodeIndex}]`, getLastItem(contestant.counts.rank));
     }
   });
 }

@@ -1,0 +1,37 @@
+@use 'styles/sass' as *;
+
+.contestant-snippet {
+  display: inline-block;
+  padding: get-unit(0 1);
+
+  &__button {
+    width: 150px;
+    height: get-unit(12);
+    display: grid;
+    grid-template-columns: get-unit(12) 1fr get-unit(12);
+    align-items: center;
+    justify-items: center;
+    background: #ffffff;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  &__name {
+    justify-self: start;
+    padding: get-unit(0 2);
+  }
+
+  &__points {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border: get-unit(1) solid rgb(210, 179, 0);
+    background: gold;
+    border-radius: var(--border-radius);
+    padding: get-unit(1);
+    font-size: 0.75em;
+    font-weight: bold;
+  }
+}

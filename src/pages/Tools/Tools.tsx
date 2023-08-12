@@ -1,5 +1,4 @@
 import { Chrome } from 'components/Chrome';
-import { SquirrelAvatar } from 'components/SquirrelAvatar';
 import { NavLink } from 'react-router-dom';
 import './Tools.scss';
 

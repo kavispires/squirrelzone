@@ -1,1 +1,0 @@
-export { TheSearch } from './TheSearch';

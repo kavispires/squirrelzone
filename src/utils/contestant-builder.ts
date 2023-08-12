@@ -151,7 +151,7 @@ export function createContestant(index: number, options?: Options) {
       screenTime: [],
     },
     relationships: {},
-    staffLikeability: {},
+    staffLikeability: 0,
     keywords: [],
     usedKeywords: [],
     sortingValue: 0,

@@ -1,0 +1,38 @@
+@use 'styles/sass' as *;
+
+.rankings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__entry {
+    &--eliminated {
+      filter: grayscale(100%);
+    }
+  }
+
+  &__button {
+    position: relative;
+  }
+
+  &__avatar {
+    width: 96px;
+    height: 96px;
+  }
+
+  &__top {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    border: get-unit(1) solid gold;
+    border-radius: var(--border-radius);
+  }
+
+  &__rest {
+    display: flex;
+    flex-wrap: wrap;
+    // grid-template-columns: repeat(7, 112px);
+    margin: get-unit(4);
+    justify-content: center;
+  }
+}

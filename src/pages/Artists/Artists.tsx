@@ -46,7 +46,7 @@ const squirrelZoneI = [
   },
   {
     name: 'Leo',
-    dna: '0:1:0:12:2:1:10:0:0:4:9:4:0:0:0:0:0:0',
+    dna: '0:2:0:0:2:1:0:0:9:3:4:0:0:1:0:0:0:0',
     color: {
       hue: 0,
       saturation: 0,
@@ -55,7 +55,7 @@ const squirrelZoneI = [
   },
   {
     name: 'Bobak',
-    dna: '0:3:0:0:0:9:11:0:0:3:4:2:0:0:0:0:0:0',
+    dna: '2:3:1:0:2:9:11:0:4:2:3:0:0:4:0:0:0:0',
     color: {
       hue: 0,
       saturation: 0,

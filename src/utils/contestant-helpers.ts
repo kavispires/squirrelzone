@@ -1,10 +1,21 @@
-import _ from 'lodash';
+import _, { constant } from 'lodash';
 import { AGES, TRACK, VARIATIONS, VARIATION_KEYS } from './constants';
-import { getRandomItem, getRandomNumber, makeNewArray, shuffle } from './helpers';
+import {
+  getLastItem,
+  getRandomItem,
+  getRandomNumber,
+  makeNewArray,
+  rollDice,
+  rollDices,
+  shuffle,
+} from './helpers';
 import { SHUFFLED_TRAITS } from './traits';
 import {
   Appearance,
   Contestant,
+  ContestantId,
+  CountKeys,
+  D6,
   NumericVariant16,
   NumericVariant32,
   NumericVariant4,
@@ -48,25 +59,232 @@ export function generateContestantAge(): number {
 }
 
 /**
- * Sets contestant given property with given value
+ * Get a value of the contestant
+ * @param contestant
+ * @param path
+ * @returns contestant
+ */
+function get(contestant: Contestant, path: string) {
+  return _.get(contestant, path);
+}
+
+/**
+ * Add any value to a contestant property
  * @param contestant
  * @param path
  * @param value
- * @returns
+ * @returns contestant
  */
-export function setContestant(contestant: Contestant, path: string, value: any): Contestant {
+function set(contestant: Contestant, path: string, value: unknown): Contestant {
   return _.set(contestant, path, value);
 }
 
 /**
- * Sets contestant given property with given value
+ * Updates value in given path
  * @param contestant
  * @param path
  * @param value
+ */
+function update(contestant: Contestant, path: string, value: unknown): Contestant {
+  return _.update(contestant, path, (n: unknown) => {
+    // If number and number, add values
+    if (typeof n === 'number' && typeof value === 'number') {
+      return n + value;
+    }
+
+    // If array, concat is value is array or push
+    if (Array.isArray(n)) {
+      if (Array.isArray(value)) {
+        return [...n, ...value];
+      }
+      n.push(value);
+      return n;
+    }
+
+    // If object, add or remove
+    if (typeof n === 'object' && n !== null) {
+      if (typeof value === 'object') {
+        return { ...n, ...value };
+      }
+    }
+
+    return value;
+  });
+}
+
+/**
+ * Add a keyword to contestant
+ * @param contestant
+ * @param keyword
+ */
+function addKeyword(contestant: Contestant, keyword: string): Contestant {
+  contestant.keywords.push(keyword);
+  return contestant;
+}
+
+/**
+ * Move a keyword to the usedKeywords list
+ * @param contestant
+ * @param keyword
+ */
+function useKeyword(contestant: Contestant, keyword: string): Contestant {
+  const usedKeyword = _.pull(contestant.keywords, keyword);
+  if (usedKeyword.length > 0) {
+    contestant.usedKeywords = [...contestant.usedKeywords, ...usedKeyword];
+  }
+  return contestant;
+}
+
+/**
+ * Check if contestant has keyword
+ * @param contestant
+ * @param keyword
+ */
+function hasKeyword(contestant: Contestant, keyword: string): boolean {
+  return contestant.keywords.includes(keyword);
+}
+
+/**
+ * Add p
+ * @param contestant
+ * @param type
+ * @param points
+ * @param index
  * @returns
  */
-export function updateContestantValue(contestant: Contestant, path: string, value: number): Contestant {
-  return _.update(contestant, path, (n: number) => n + value);
+function addCount(contestant: Contestant, type: CountKeys, points: number, index: number) {
+  return _.update(contestant, 'counts', (counts: Record<CountKeys, number[]>) => {
+    const position = index ?? counts[type].length - 1;
+    // if (Number.isNaN(points)) {
+    //   debugger;
+    // }
+
+    counts[type][position] = (counts[type][position] ?? 0) + points;
+
+    if (type !== 'total') {
+      counts.total[position] = (counts.total[position] ?? 0) + points;
+      console.log(contestant.name, type, counts[type][position], counts.total.join(', '));
+    }
+
+    return counts;
+  });
+}
+
+function getTrackStageSkill(contestant: Contestant, track?: string): D6 {
+  const selectedTrack = track || String(contestant.track);
+  return (
+    {
+      VOCAL: contestant.stats.stage.vocal,
+      RAP: contestant.stats.stage.rap,
+      DANCE: contestant.stats.stage.dance,
+    }[selectedTrack] ?? 1
+  );
+}
+
+/**
+ * Makes D6 rolls, but only accept the value if at max +1 than stat
+ * @param stat
+ * @returns
+ */
+function stageRoll(stat: D6) {
+  const roll = rollDices(stat);
+  return roll >= stat + 1 ? stat : roll;
+}
+
+function gateKeepStatRoll(stat: number, roll: number) {
+  return roll > stat ? stat : roll;
+}
+
+/**
+ * Makes a D6 roll and return 1 if roll is equal or less than the stat
+ * @param stat
+ * @returns 1 | 0
+ */
+function generalRoll(stat: D6) {
+  const roll = rollDice();
+  return roll <= stat ? 1 : 0;
+}
+
+function perform(contestant: Contestant, track: string) {
+  // Roll D6s equal to tracked skill but contestant can never get more than +1 of tracked skill
+  const stageSkill = getTrackStageSkill(contestant, track);
+  const roll = stageRoll(stageSkill);
+
+  // Roll 1D6 for charisma, stagePresence, and visual. Keep pips up to each state
+  const charisma = generalRoll(contestant.stats.general.charisma);
+  const stagePresence = generalRoll(contestant.stats.general.stagePresence);
+  const visual = generalRoll(contestant.stats.general.visual);
+
+  return roll + charisma + stagePresence + visual;
+}
+
+export const contestantMethods = {
+  get,
+  set,
+  update,
+  addKeyword,
+  useKeyword,
+  hasKeyword,
+  addCount,
+  getTrackStageSkill,
+  perform,
+  stageRoll,
+  generalRoll,
+};
+
+function setSortingValue(contestant: Contestant, sortingTypes: CountKeys[], index: number): number {
+  const value = sortingTypes.reduce((acc, countName) => {
+    const count = get(contestant, `counts.${countName}`) ?? [];
+    acc += index < 0 ? getLastItem(count) : count[index];
+    return acc;
+  }, 0);
+  set(contestant, 'sortingValue', value);
+  return value;
+}
+
+export function rankContestants(
+  contestants: Record<ContestantId, Contestant> | Contestant[],
+  sortingTypes: CountKeys[],
+  episodeNumber: number
+) {
+  const contestantsList = Object.values(contestants);
+  // Build and set sorting value while saving the sorting values to a rankings array
+  const rankings: number[] = contestantsList.map((contestant) =>
+    setSortingValue(contestant, sortingTypes, -1)
+  );
+  // Sort
+  rankings.sort((a, b) => b - a);
+
+  const usedRanks: Record<string, true> = {};
+  contestantsList.forEach((contestant) => {
+    if (contestant.status === 'ACTIVE') {
+      let rank = rankings.indexOf(contestant.sortingValue) + 1;
+
+      while (usedRanks[rank] !== undefined) {
+        rank += 1;
+      }
+      usedRanks[rank] = true;
+      contestantMethods.set(contestant, `counts.rank.[${episodeNumber}]`, rank);
+    } else {
+      contestantMethods.set(
+        contestant,
+        `counts.rank.[${episodeNumber}]`,
+        getLastItem(contestant.counts.rank)
+      );
+    }
+  });
+}
+
+/**
+ * Makes contestant dictionary from list
+ * @param contestants
+ * @returns
+ */
+export function makeContestantDictionaryFromList(contestants: Contestant[]) {
+  return contestants.reduce((acc: Record<ContestantId, Contestant>, contestant) => {
+    acc[contestant.id] = contestant;
+    return acc;
+  }, {});
 }
 
 /**
@@ -99,17 +317,21 @@ export function buildStageStats(contestant: Contestant) {
   let currentStat = untrackedStat1;
 
   // Vocals
-  setContestant(
+  contestantMethods.set(
     contestant,
     'stats.stage.vocal',
     contestant.track === TRACK.VOCAL ? trackedStat : currentStat
   );
   currentStat = contestant.track === TRACK.VOCAL ? currentStat : untrackedStat2;
 
-  setContestant(contestant, 'stats.stage.rap', contestant.track === TRACK.RAP ? trackedStat : currentStat);
+  contestantMethods.set(
+    contestant,
+    'stats.stage.rap',
+    contestant.track === TRACK.RAP ? trackedStat : currentStat
+  );
   currentStat = contestant.track === TRACK.RAP ? currentStat : untrackedStat2;
 
-  setContestant(
+  contestantMethods.set(
     contestant,
     'stats.stage.dance',
     contestant.track === TRACK.DANCE ? trackedStat : currentStat
@@ -143,23 +365,39 @@ export function buildGeneralStats(contestant: Contestant, max: number) {
   const shuffledResults = shuffle(result);
 
   keys.forEach((key, index) => {
-    setContestant(contestant, `stats.general.${key}`, shuffledResults[index]);
+    contestantMethods.set(contestant, `stats.general.${key}`, shuffledResults[index]);
   });
 }
 
 export function buildSkillsStats(contestant: Contestant) {
   // Learning (min: 0.5)
-  setContestant(contestant, 'stats.skills.learning', Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  contestantMethods.set(
+    contestant,
+    'stats.skills.learning',
+    Math.max(0.5, Math.round(Math.random() * 100) / 100)
+  );
   // Memory (min: 0.5)
-  setContestant(contestant, 'stats.skills.memory', Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  contestantMethods.set(
+    contestant,
+    'stats.skills.memory',
+    Math.max(0.5, Math.round(Math.random() * 100) / 100)
+  );
   // Style (no minimum)
-  setContestant(contestant, 'stats.skills.style', Math.round(Math.random() * 100) / 100);
+  contestantMethods.set(contestant, 'stats.skills.style', Math.round(Math.random() * 100) / 100);
   // Memory (min: 0.75)
-  setContestant(contestant, 'stats.skills.sanity', Math.max(0.75, Math.round(Math.random() * 100) / 100));
+  contestantMethods.set(
+    contestant,
+    'stats.skills.sanity',
+    Math.max(0.75, Math.round(Math.random() * 100) / 100)
+  );
   // Stamina (min: 0.5)
-  setContestant(contestant, 'stats.skills.stamina', Math.max(0.5, Math.round(Math.random() * 100) / 100));
+  contestantMethods.set(
+    contestant,
+    'stats.skills.stamina',
+    Math.max(0.5, Math.round(Math.random() * 100) / 100)
+  );
   // Luck (no minimum)
-  setContestant(contestant, 'stats.skills.luck', Math.round(Math.random() * 100) / 100);
+  contestantMethods.set(contestant, 'stats.skills.luck', Math.round(Math.random() * 100) / 100);
 }
 
 const usedTraits: Record<string, boolean> = {};
@@ -190,11 +428,14 @@ export function distributeTraits(contestant: Contestant, kind: keyof typeof SHUF
   // Apply setup
   contestantTraits.forEach((trait) => {
     Object.entries(trait.setup.update).forEach(([path, value]) => {
-      updateContestantValue(contestant, path, value);
+      contestantMethods.update(contestant, path, value);
     });
   });
 
-  setContestant(contestant, 'keywords', [...contestant.keywords, ...contestantTraits.map((t) => t.keyword)]);
+  contestantMethods.set(contestant, 'keywords', [
+    ...contestant.keywords,
+    ...contestantTraits.map((t) => t.keyword),
+  ]);
 }
 
 export function determineAlignment(contestant: Contestant) {
@@ -228,8 +469,8 @@ export function determineAlignment(contestant: Contestant) {
   y = updateAxis(x, determineValue(contestant.stats.personality.sincerity * -1));
   // Happiness
 
-  setContestant(contestant, 'stats.alignment.x', x);
-  setContestant(contestant, 'stats.alignment.y', y);
+  contestantMethods.set(contestant, 'stats.alignment.x', x);
+  contestantMethods.set(contestant, 'stats.alignment.y', y);
 }
 
 function cleanupD6(value: number) {
@@ -262,23 +503,23 @@ function cleanupRange(value: number) {
 export function cleanupStats(contestant: Contestant) {
   // Stage
   Object.entries(contestant.stats.stage).forEach(([key, value]) => {
-    setContestant(contestant, `stats.stage.${key}`, cleanupD6(value));
+    contestantMethods.set(contestant, `stats.stage.${key}`, cleanupD6(value));
   });
   // General
   Object.entries(contestant.stats.general).forEach(([key, value]) => {
-    setContestant(contestant, `stats.general.${key}`, cleanupD6(value));
+    contestantMethods.set(contestant, `stats.general.${key}`, cleanupD6(value));
   });
   // Skills
   Object.entries(contestant.stats.skills).forEach(([key, value]) => {
-    setContestant(contestant, `stats.skills.${key}`, cleanupPercentage(value));
+    contestantMethods.set(contestant, `stats.skills.${key}`, cleanupPercentage(value));
   });
   // Personality
   Object.entries(contestant.stats.personality).forEach(([key, value]) => {
-    setContestant(contestant, `stats.personality.${key}`, cleanupRange(value));
+    contestantMethods.set(contestant, `stats.personality.${key}`, cleanupRange(value));
   });
   // Multipliers
   Object.entries(contestant.stats.multipliers).forEach(([key, value]) => {
-    setContestant(contestant, `stats.multipliers.${key}`, cleanupMultiplier(value));
+    contestantMethods.set(contestant, `stats.multipliers.${key}`, cleanupMultiplier(value));
   });
 }
 
@@ -356,7 +597,7 @@ export function determinePersonalityType(contestant: Contestant) {
   types[2] = counts.T > counts.F ? 'T' : 'F';
   types[3] = counts.J > counts.P ? 'J' : 'P';
 
-  setContestant(contestant, `personalityType.type`, types.join(''));
+  contestantMethods.set(contestant, `personalityType.type`, types.join(''));
 }
 
 export function generateRelationships(contestants: Record<string, Contestant>) {
@@ -433,3 +674,13 @@ export function parseDNA(dna: string): Appearance {
     },
   };
 }
+
+export const getContestantsRanking = (contestants: Contestant[]) => {
+  const rank: ContestantId[] = [];
+
+  contestants.forEach((contestant) => {
+    rank[getLastItem(contestant.counts.rank) - 1] = contestant.id;
+  });
+
+  return rank;
+};
