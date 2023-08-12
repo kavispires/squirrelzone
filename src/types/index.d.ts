@@ -396,3 +396,13 @@ export interface AppearanceData {
   name: string;
   update: TraitUpdateAction;
 }
+
+export * from './Artist';
+export * from './ArtistEntry';
+export * from './Distribution';
+export * from './DistributionEntry';
+export * from './Enums';
+export * from './Group';
+export * from './GroupEntry';
+export * from './Song';
+export * from './SongEntry';
