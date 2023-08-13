@@ -1,34 +1,40 @@
 import { Chrome } from 'components/Chrome';
 import { SquirrelAvatar } from 'components/SquirrelAvatar';
 import './Artists.scss';
+import { Typography } from 'antd';
 
 export function Artists() {
   return (
     <Chrome>
-      <div className="container artists">
-        <h2>/artists</h2>
-        <div className="members">
-          {squirrelZoneI.map((member) => {
-            return (
-              <div className="member" key={member.name}>
-                <SquirrelAvatar dna={member.dna} color={member.color} />
-                <span className="member__name">{member.name}</span>
-              </div>
-            );
-          })}
+      <div className="page artists">
+        <Typography.Title>Artists</Typography.Title>
+        <div className="content">
+          <div className="members">
+            {squirrelZoneI.map((member) => {
+              return (
+                <div className="member" key={member.name}>
+                  <SquirrelAvatar dna={member.dna} color={member.color} />
+                  <span className="member__name">{member.name}</span>
+                </div>
+              );
+            })}
+          </div>
+          <p>JQ</p>
+          <p>Nicky</p>
+          <p>Robbie</p>
+          <p>Sypher</p>
+          <p>Nathan</p>
+          <p>Fuduck</p>
+          <p>Diana (Doubt Girls)</p>
+          <p>Olivia (Doubt Girls)</p>
+          <p>Ulla (Doubt Girls)</p>
+          <p>Brittany (Doubt Girls)</p>
+          <p>Tracy (Doubt Girls)</p>
+          <p>Steph (SYK)</p>
+          <p>Y.Y (SYK)</p>
+          <p>Kav (SYK)</p>
+          <p>... Relevant contestants</p>
         </div>
-        <p>JQ</p>
-        <p>Nicky</p>
-        <p>Robbie</p>
-        <p>Sypher</p>
-        <p>Nathan</p>
-        <p>Fuduck</p>
-        <p>Diana</p>
-        <p>Olivia</p>
-        <p>Ulla</p>
-        <p>Brittany</p>
-        <p>Tracy</p>
-        <p>... Relevants contestants</p>
       </div>
     </Chrome>
   );

@@ -4,6 +4,15 @@
   box-shadow: 0 8px 5px rgba(0, 0, 0, 0.1);
 }
 
+@mixin container-background {
+  background-image: linear-gradient(
+    to top,
+    rgba(15, 16, 20, 0.85),
+    rgba(19, 23, 37, 0.85),
+    rgb(22, 29, 54, 0.85)
+  );
+}
+
 @mixin reset-list {
   margin: 0;
   padding: 0;

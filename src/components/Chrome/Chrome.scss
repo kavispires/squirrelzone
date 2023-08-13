@@ -1,3 +1,5 @@
+@use 'styles/sass' as *;
+
 .chrome.chrome {
   background-image: linear-gradient(
     to right top,
@@ -15,4 +17,18 @@
     #5ffbf1
   );
   min-height: 100vh;
+}
+
+.chrome-layout.chrome-layout {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.chrome-layout-content.chrome-layout-content {
+  padding: get-unit(2 6);
 }

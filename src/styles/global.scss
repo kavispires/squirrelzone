@@ -1,5 +1,11 @@
 @use './sass.scss' as *;
 
-.container {
+.page {
   margin: get-unit(3 6);
+}
+
+.content {
+  padding: get-unit(6);
+  border-radius: var(--border-radius);
+  @include container-background;
 }

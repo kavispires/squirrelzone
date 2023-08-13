@@ -13,8 +13,13 @@ export function Chrome({ children }: ChromeProps) {
   return (
     <Layout className="chrome">
       {isAuthenticated && <Menu />}
-      <Layout style={{ background: 'transparent' }}>
-        <Layout.Content>{children}</Layout.Content>
+      <Layout
+        className="chrome-layout"
+        style={{
+          backgroundImage: `url('${process.env.PUBLIC_URL}/images/cover.jpg')`,
+        }}
+      >
+        <Layout.Content className="chrome-layout-content">{children}</Layout.Content>
         <Footer />
       </Layout>
     </Layout>
