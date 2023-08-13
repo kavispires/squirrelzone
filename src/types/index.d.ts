@@ -397,6 +397,7 @@ export interface AppearanceData {
   update: TraitUpdateAction;
 }
 
+export * from './aliases';
 export * from './Artist';
 export * from './ArtistEntry';
 export * from './Distribution';

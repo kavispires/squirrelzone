@@ -1,6 +1,26 @@
 // THIS FILE SHOULD BE MOVED TO UTILS
 
 /**
+ * Enum for firebase collections
+ */
+export const COLLECTIONS = {
+  artists: 'artists',
+  distributions: 'distributions',
+  groups: 'groups',
+  songs: 'songs',
+};
+
+export type Collection = keyof typeof COLLECTIONS;
+
+export const LISTINGS = {
+  artists: 'artists',
+  groups: 'groups',
+  songs: 'songs',
+};
+
+export type Listing = keyof typeof LISTINGS;
+
+/**
  * A performer's main area of focus
  */
 export const TRACK = {
