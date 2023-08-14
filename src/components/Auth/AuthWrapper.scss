@@ -1,0 +1,24 @@
+@use 'styles/sass' as *;
+
+.auto-wrapper-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__logo {
+    width: clamp(15vw, 200px, 100px);
+    margin: get-unit(10);
+
+    @include sm {
+      width: 70px;
+    }
+  }
+
+  &__logo-text {
+    width: clamp(20vw, 360px, 200px);
+
+    @include sm {
+      width: 70px;
+    }
+  }
+}

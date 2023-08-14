@@ -1,15 +1,20 @@
+import './Chrome.scss';
+
 import { Layout } from 'antd';
+import { AuthWrapper } from 'components/Auth';
+import { useAuthContext } from 'hooks/useAuthContext';
 import { ReactNode } from 'react';
+
 import { Footer } from './Footer';
 import { Menu } from './Menu';
-import './Chrome.scss';
 
 type ChromeProps = {
   children: ReactNode;
 };
 
 export function Chrome({ children }: ChromeProps) {
-  const isAuthenticated = true; // TODO
+  const { isAuthenticated } = useAuthContext();
+
   return (
     <Layout className="chrome">
       {isAuthenticated && <Menu />}
@@ -19,7 +24,9 @@ export function Chrome({ children }: ChromeProps) {
           backgroundImage: `url('${process.env.PUBLIC_URL}/images/cover.jpg')`,
         }}
       >
-        <Layout.Content className="chrome-layout-content">{children}</Layout.Content>
+        <Layout.Content className="chrome-layout-content">
+          <AuthWrapper>{children}</AuthWrapper>
+        </Layout.Content>
         <Footer />
       </Layout>
     </Layout>

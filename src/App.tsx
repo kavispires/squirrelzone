@@ -9,6 +9,7 @@ import { Tools } from 'pages/Tools';
 import { CreateDNA } from 'pages/Tools/CreateDNA';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from 'services/AuthProvider';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,18 +33,20 @@ function App() {
           },
         }}
       >
-        <HashRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/groups" element={<Groups />} />
-            <Route path="/artists" element={<Artists />} />
-            <Route path="/search" element={<TheSearch />} />
-            <Route path="/tools" element={<Tools />} />
-            <Route path="/tools/dna" element={<CreateDNA />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </HashRouter>
+        <AuthProvider>
+          <HashRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/groups" element={<Groups />} />
+              <Route path="/artists" element={<Artists />} />
+              <Route path="/search" element={<TheSearch />} />
+              <Route path="/tools" element={<Tools />} />
+              <Route path="/tools/dna" element={<CreateDNA />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
+          </HashRouter>
+        </AuthProvider>
       </ConfigProvider>
     </QueryClientProvider>
   );
