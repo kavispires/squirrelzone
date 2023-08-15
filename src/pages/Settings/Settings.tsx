@@ -1,12 +1,11 @@
-import { Typography } from 'antd';
-import { Chrome } from 'components/Chrome';
+import { Chrome, Content, Header } from 'components/Chrome';
 
 export function Settings() {
   return (
     <Chrome>
-      <div className="page settings">
-        <Typography.Title level={2}>Settings</Typography.Title>
-      </div>
+      <Header title="Settings" />
+
+      <Content>?</Content>
     </Chrome>
   );
 }

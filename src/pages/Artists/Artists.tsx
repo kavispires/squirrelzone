@@ -1,8 +1,11 @@
-import { Chrome } from 'components/Chrome';
-import { SquirrelAvatar } from 'components/SquirrelAvatar';
+import { Button } from 'antd';
 import './Artists.scss';
-import { Typography } from 'antd';
+
+import { Chrome, Content } from 'components/Chrome';
+import { Header } from 'components/Chrome/Header';
+import { SquirrelAvatar } from 'components/SquirrelAvatar';
 import { ArtistEntry, HSLColor } from 'types';
+import { NavLink } from 'react-router-dom';
 
 const parseColor = (color: string): HSLColor => {
   const [hue, saturation, lightness] = color.split(':');
@@ -12,36 +15,42 @@ const parseColor = (color: string): HSLColor => {
 export function Artists() {
   return (
     <Chrome>
-      <div className="page artists">
-        <Typography.Title>Artists</Typography.Title>
-        <div className="content">
-          <div className="members">
-            {squirrelZoneI.map((member) => {
-              return (
-                <div className="member" key={member.name}>
-                  <SquirrelAvatar dna={member.dna} color={parseColor(member.color)} />
-                  <span className="member__name">{member.name}</span>
-                </div>
-              );
-            })}
-          </div>
-          <p>JQ</p>
-          <p>Nicky</p>
-          <p>Robbie</p>
-          <p>Sypher</p>
-          <p>Nathan</p>
-          <p>Fuduck</p>
-          <p>Diana (Doubt Girls)</p>
-          <p>Olivia (Doubt Girls)</p>
-          <p>Ulla (Doubt Girls)</p>
-          <p>Brittany (Doubt Girls)</p>
-          <p>Tracy (Doubt Girls)</p>
-          <p>Steph (SYK)</p>
-          <p>Y.Y (SYK)</p>
-          <p>Kav (SYK)</p>
-          <p>... Relevant contestants</p>
+      <Header
+        title="Artists"
+        actions={
+          <Button>
+            <NavLink to="create">Create New Artist</NavLink>
+          </Button>
+        }
+      />
+
+      <Content>
+        <div className="members">
+          {squirrelZoneI.map((member) => {
+            return (
+              <div className="member" key={member.name}>
+                <SquirrelAvatar dna={member.dna} color={parseColor(member.color)} />
+                <span className="member__name">{member.name}</span>
+              </div>
+            );
+          })}
         </div>
-      </div>
+        <p>JQ</p>
+        <p>Nicky</p>
+        <p>Robbie</p>
+        <p>Sypher</p>
+        <p>Nathan</p>
+        <p>Fuduck</p>
+        <p>Diana (Doubt Girls)</p>
+        <p>Olivia (Doubt Girls)</p>
+        <p>Ulla (Doubt Girls)</p>
+        <p>Brittany (Doubt Girls)</p>
+        <p>Tracy (Doubt Girls)</p>
+        <p>Steph (SYK)</p>
+        <p>Y.Y (SYK)</p>
+        <p>Kav (SYK)</p>
+        <p>... Relevant contestants</p>
+      </Content>
     </Chrome>
   );
 }

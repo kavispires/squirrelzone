@@ -1,21 +1,18 @@
-import { Typography } from 'antd';
-import { Chrome } from 'components/Chrome';
+import { Chrome, Content, Header } from 'components/Chrome';
 
 export function Groups() {
   return (
     <Chrome>
-      <div className="page groups">
-        <Typography.Title>Groups</Typography.Title>
-        <div className="content">
-          <p>Squirrel Zone</p>
-          <p>Squirrel Zone II</p>
-          <p>Doubt Girls</p>
-          <p>Squirrel Zone OT4</p>
-          <p>Squirrel Zone with Fuduck</p>
-          <p>The Search for the Next Squirrel (21 contestants)</p>
-          <p>Bunny Area</p>
-        </div>
-      </div>
+      <Header title="Groups" />
+      <Content>
+        <p>Squirrel Zone</p>
+        <p>Squirrel Zone II</p>
+        <p>Doubt Girls</p>
+        <p>Squirrel Zone OT4</p>
+        <p>Squirrel Zone with Fuduck</p>
+        <p>The Search for the Next Squirrel (21 contestants)</p>
+        <p>Bunny Area</p>
+      </Content>
     </Chrome>
   );
 }

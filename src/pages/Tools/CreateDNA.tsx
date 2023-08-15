@@ -1,7 +1,7 @@
 import { CopyOutlined } from '@ant-design/icons';
 import { Button, Collapse, Layout, Popover } from 'antd';
 import clsx from 'clsx';
-import { Chrome } from 'components/Chrome';
+import { Chrome, Content, Header } from 'components/Chrome';
 import { SquirrelAvatar } from 'components/SquirrelAvatar';
 import { useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
@@ -29,9 +29,8 @@ export function CreateDNA() {
 
   return (
     <Chrome>
-      <div className="container create-dna">
-        <h2>/create-dna</h2>
-
+      <Header title="Create DNA" />
+      <Content className="create-dna">
         <Layout className="create-dna__container">
           <Layout.Sider className="create-dna__section" width={300}>
             <div className="main-sample">
@@ -103,7 +102,7 @@ export function CreateDNA() {
             </Collapse>
           </Layout.Content>
         </Layout>
-      </div>
+      </Content>
     </Chrome>
   );
 }
