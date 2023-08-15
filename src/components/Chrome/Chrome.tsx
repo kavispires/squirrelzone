@@ -7,12 +7,20 @@ import { ReactNode } from 'react';
 
 import { Footer } from './Footer';
 import { Menu } from './Menu';
+import clsx from 'clsx';
 
 type ChromeProps = {
+  /**
+   * The content to render in the chrome.
+   */
   children: ReactNode;
+  /**
+   * The class name to apply to the content container.
+   */
+  className?: string;
 };
 
-export function Chrome({ children }: ChromeProps) {
+export function Chrome({ children, className = '' }: ChromeProps) {
   const { isAuthenticated } = useAuthContext();
 
   return (
@@ -25,7 +33,9 @@ export function Chrome({ children }: ChromeProps) {
         }}
       >
         <Layout.Content className="chrome-layout-content">
-          <AuthWrapper>{children}</AuthWrapper>
+          <AuthWrapper>
+            <div className={clsx('page', className)}>{children}</div>
+          </AuthWrapper>
         </Layout.Content>
         <Footer />
       </Layout>

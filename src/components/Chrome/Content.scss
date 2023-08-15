@@ -1,0 +1,7 @@
+@use 'styles/sass' as *;
+
+.content {
+  padding: get-unit(6);
+  border-radius: var(--border-radius);
+  @include container-background;
+}
