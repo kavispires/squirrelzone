@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/squirrelzone/static/css/main.2b3132e9.css",
-    "main.js": "/squirrelzone/static/js/main.29843753.js",
-    "static/js/787.fa449407.chunk.js": "/squirrelzone/static/js/787.fa449407.chunk.js",
+    "main.css": "/squirrelzone/static/css/main.11cd75a9.css",
+    "main.js": "/squirrelzone/static/js/main.acf2a6de.js",
+    "static/js/496.2c866b6e.chunk.js": "/squirrelzone/static/js/496.2c866b6e.chunk.js",
+    "static/media/icons.svg": "/squirrelzone/static/media/icons.8a6857adc013be86b5d6fad25e330596.svg",
     "index.html": "/squirrelzone/index.html",
-    "main.2b3132e9.css.map": "/squirrelzone/static/css/main.2b3132e9.css.map",
-    "main.29843753.js.map": "/squirrelzone/static/js/main.29843753.js.map",
-    "787.fa449407.chunk.js.map": "/squirrelzone/static/js/787.fa449407.chunk.js.map"
+    "main.11cd75a9.css.map": "/squirrelzone/static/css/main.11cd75a9.css.map",
+    "main.acf2a6de.js.map": "/squirrelzone/static/js/main.acf2a6de.js.map",
+    "496.2c866b6e.chunk.js.map": "/squirrelzone/static/js/496.2c866b6e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2b3132e9.css",
-    "static/js/main.29843753.js"
+    "static/css/main.11cd75a9.css",
+    "static/js/main.acf2a6de.js"
   ]
 }
