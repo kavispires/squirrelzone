@@ -1,18 +1,17 @@
-import { BUILD, HEIGHT, SIZE, SPECIES, TRACK } from './constants';
+import { SIZE } from 'utils/constants';
+import { Build, Height, Species, Track } from './Enums';
 
-export type Species = keyof typeof SPECIES;
-export type Height = keyof typeof HEIGHT;
-export type Build = keyof typeof BUILD;
 export type Size = keyof typeof SIZE;
-export type Track = keyof typeof TRACK;
 
 export type Range0to3 = 0 | 1 | 2 | 3;
 export type Range4to7 = 4 | 5 | 6 | 7;
+export type Range8to12 = 8 | 9 | 10 | 11 | 12;
 export type Range8to15 = 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
 export type Range16to31 = 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31;
 
 export type NumericVariant4 = Range0to3;
 export type NumericVariant8 = Range0to3 | Range4to7;
+export type NumericVariant12 = Range0to3 | Range4to7 | Range8to12;
 export type NumericVariant16 = Range0to3 | Range4to7 | Range8to15;
 export type NumericVariant32 = Range0to3 | Range4to7 | Range8to15 | Range16to31;
 

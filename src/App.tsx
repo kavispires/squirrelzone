@@ -1,5 +1,5 @@
 import { ConfigProvider, theme } from 'antd';
-import { Artists } from 'pages/Artists';
+import { Artists, ArtistsCreate } from 'pages/Artists';
 import { Groups } from 'pages/Groups';
 import { History } from 'pages/History';
 import { Home } from 'pages/Home/Home';
@@ -40,6 +40,7 @@ function App() {
               <Route path="/history" element={<History />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/artists" element={<Artists />} />
+              <Route path="/artists/create" element={<ArtistsCreate />} />
               <Route path="/search" element={<TheSearch />} />
               <Route path="/tools" element={<Tools />} />
               <Route path="/tools/dna" element={<CreateDNA />} />

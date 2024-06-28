@@ -23,7 +23,7 @@ export type Listing = keyof typeof LISTINGS;
 /**
  * A performer's main area of focus
  */
-export const TRACK = {
+export const TRACKS = {
   VOCAL: 'VOCAL',
   RAP: 'RAP',
   DANCE: 'DANCE',
@@ -32,7 +32,7 @@ export const TRACK = {
 /**
  * A performer's main area of focus
  */
-export type Track = keyof typeof TRACK;
+export type Track = keyof typeof TRACKS;
 
 /**
  * The type of an individual
@@ -41,6 +41,8 @@ export const SPECIES = {
   squirrel: 'squirrel',
   duck: 'duck',
   dog: 'dog',
+  rabbit: 'rabbit',
+  bear: 'bear',
 };
 
 /**

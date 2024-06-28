@@ -1,5 +1,5 @@
 import { Build, Height, Species, Track } from './Enums';
-import { ArtistUID, HSL } from './aliases';
+import { ArtistUID, GroupUID, HSL } from './aliases';
 
 /**
  * A artist
@@ -57,4 +57,8 @@ export interface Artist {
    * The tagline of the artist.
    */
   tagLine?: string;
+  /**
+   * Linked groups.
+   */
+  groups?: GroupUID[];
 }
